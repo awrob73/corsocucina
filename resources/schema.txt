@@ -1,0 +1,147 @@
+CREATE SCHEMA progetto_fine_corso_scuola_cucina;
+
+USE progetto_fine_corso_scuola_cucina;
+
+CREATE TABLE amministratore
+(
+	id bigint auto_increment,
+    username varchar(255) not null unique,
+	password varchar(255) not null, 
+	nome varchar(255) not null, 
+	cognome varchar(255) not null, 
+	data_nascita date not null, 
+	email varchar(255) not null, 
+	telefono bigint not null,
+	primary key(id)
+);
+
+CREATE TABLE utente
+(
+	id bigint auto_increment,
+    username varchar(255) not null unique,
+	password varchar (255) not null, 
+	nome varchar(255) not null, 
+	cognome varchar(255) not null, 
+	data_nascita date not null, 
+	email varchar(255) not null, 
+	telefono bigint not null,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE corso 
+(
+	id bigint auto_increment,
+    codice integer not null unique,
+    titolo varchar(255) not null, 
+	id_categoria bigint not null,
+	max_partecipanti integer not null,
+	costo double not null, 
+	descrizione varchar(2000),
+	primary key(id)
+);
+
+CREATE TABLE categoria 
+(
+	id bigint auto_increment, 
+	descrizione varchar(255) not null,
+	primary key(id)
+);
+
+CREATE TABLE edizione 
+(
+	id bigint auto_increment,
+    id_corso bigint not null,
+    data_inizio date not null,
+    durata int not null,
+    aula varchar(255),
+    docente varchar(255) not null,
+    terminata tinyint(1) not null,
+    primary key(id),
+    foreign key(id_corso) references corso(id)
+);
+
+CREATE TABLE iscritto 
+(
+	id bigint auto_increment,
+	id_edizione bigint not null, 
+	id_utente bigint not null,
+    unique(id_edizione, id_utente),
+    primary key(id),
+    foreign key(id_edizione) references edizione(id),
+    foreign key(id_utente) references utente(id)
+);
+
+CREATE TABLE feedback 
+(
+	id bigint auto_increment,
+    descrizione varchar(255) not null, 
+	voto integer not null,
+	id_edizione bigint not null, 
+	id_utente bigint not null, 
+    unique(id_edizione, id_utente),
+	primary key(id),
+    foreign key(id_edizione) references edizione(id),
+    foreign key(id_utente) references utente(id)
+);
+
+CREATE TABLE mail
+(
+	id bigint auto_increment, 
+	subject varchar(255) not null, 
+	data date not null, 
+	body varchar(2000),
+    primary key(id)
+);
+
+INSERT INTO amministratore(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (1, 'admin', 'admin', 'Andrea', 'Bianchi', '1975-02-25', 'administratorSC@gmail.com', 3331234567);
+INSERT INTO amministratore(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (2, 'marco81', 'marco', 'Marco', 'Rossi', '1957-11-22', 'admScuolaCucina@tiscali.it', 3332456178);
+
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (1, 'davide', 'davide', 'Davide', 'Precetti', '1982-08-12', 'davide.precetti@gmail.com', 3391448087);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (2, 'fausto', 'fausto', 'Fausto', 'Paniccia', '1982-03-03', 'pncfausto@libero.it', 3201916480);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (3, 'francesco', 'francesco', 'Francesco', 'Valerio', '1982-04-13', 'francesco.valerio@gmail.com', 3386965410);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (4, 'Ing_Ruben', 'password', 'Ruben', 'Giaccotto', '1981-03-17', 'ruben@giaccotto.it', 3477011366);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (5, 'mar81', '81', 'Marco', 'Rossi', '1981-04-01', 'marcobrucchietti@gmail.com', 33325854118);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (6, 'mauro', 'mauro', 'Mauro', 'Bove', '1981-08-19', 'bove.mauro@gmail.com', 3387972613);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (7, 'michele', 'michele', 'Michele', 'Fiorentino', '1988-01-09', 'mike.fiorentino@tiscali.it', 3402286606);
+INSERT INTO utente(id, username, password, nome, cognome, data_nascita, email, telefono) VALUES (8, 'veronica', 'veronica', 'Veronica', 'Romani', '1983-07-24', 'veve-83@hotmail.it', 3336448818);
+
+INSERT INTO categoria(id, descrizione) VALUES (1, 'Antipasti');
+INSERT INTO categoria(id, descrizione) VALUES (2, 'Primi piatti');
+INSERT INTO categoria(id, descrizione) VALUES (3, 'Secondi piatti');
+INSERT INTO categoria(id, descrizione) VALUES (4, 'Contorni');
+INSERT INTO categoria(id, descrizione) VALUES (5, 'Frutta');
+INSERT INTO categoria(id, descrizione) VALUES (6, 'Dolci');
+INSERT INTO categoria(id, descrizione) VALUES (7, 'Cucina amatoriale');
+INSERT INTO categoria(id, descrizione) VALUES (8, 'Cucina professionale(corsi per cuochi)');
+
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (1, 890, 'Sfiziosità di carne', 3, 15, 100.00, 'Squisiti bocconcini, piccole preparazioni classiche e ricette innovative. Un appetitoso viaggio attraverso i tanti modi di preparare e gustare la carne rossa e bianca, tra fantasia e tradizione, semplicità e raffinatezza.\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \'Calendario Corsi\' e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\nPro: poche calorie, colorati, facili da preparare, appetitosi…\r\nContro: una volta assaggiati vi richiederanno sempre porzioni abbondanti. da realizzare…\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (2, 891, 'Sfiziosi primi… vegetariani', 2, 20, 70.00, 'Pro: poche calorie, colorati, facili da preparare, appetitosi…\r\nContro: una volta assaggiati vi richiederanno sempre porzioni abbondanti. da realizzare…\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (3, 892, 'Dessert al piatto', 6, 20, 75.00, 'Un dolce deve essere bello, sorprendente, affascinante, intrigante, profumato……al primo boccone dobbiamo desiderare subito il secondo. Ci saranno combinazioni di sapore mai forzate ma che sorprenderanno le vostre papille gustative. Otterrete da semplici ingredienti e da preparazioni del tutto tradizionali, ottimi e innovativi dessert.\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (4, 893, 'Antipastini di mare', 1, 20, 130.00, 'Sfiziosi antipasti, pieni di sapore e profumi, ricette facilmente realizzabili, insolite e gustosissime.\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (5, 894, 'Paste con verdure', 2, 15, 80.00, 'La primavera regala alla pasta soluzioni divertenti di sapore, all\'insegna dell\'originalità. Fave, melanzane, piselli, asparagi e tanti altri si sposeranno con garganelli, orecchiette, tagliolini... un gustoso matrimonio di sapori.\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n\r\n\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (6, 895, 'Corso di cucina (base)', 7, 20, 250.00, 'Un corso fondamentale, a cadenza settimanale, un vero e proprio punto di partenza per conoscere i procedimenti e le lavorazioni indispensabili per cucinare. Ogni incontro sarà l\'occasione per apprendere, attraverso la realizzazione di un menu completo, piccoli segreti sull\'esecuzione di piatti basilari o sull\'acquisto e la scelta degli alimenti, la loro lavorazione e infine i \"trucchi\" dello chef che saranno il vostro asso nella manica. Un corso importante attraverso cui capire e \"provare\" la cucina, che degusterete con l\'abbinamento dei vini. Possibilità di esercitarsi, nel corso della lezione, accanto allo chef. A fine corso sarà rilasciato un attestato.\r\n\r\nImportante!!!\r\nIl  presente corso verrà erogato con una cadenza settimanale a partire dal giorno\r\nindicato nel \"Calendario Corsi\"  e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (7, 896, 'Corso di cucina\r\n(avanzato)\r\n', 8, 20, 260.00, 'Accontentando le numerose richieste di chi ha già superato il livello di base, cinque incontri (a cadenza settimanale) in cui approfondire quegli argomenti che escono dalla conoscenza di base e si avvicinano maggiormente all\'alta cucina. Spazieremo nel mondo delle salse, della cottura a vapore per una cucina leggera ma piena di sapore, dei bolliti fatti ad arte, della pasta fatta in casa con creatività, del cous cous, del pan di Spagna e molte altre ghiottonerie.\r\n\r\nImportante!!!\r\nIl  presente corso verrà erogato con una cadenza settimanale a partire dal giorno\r\nindicato nel \"Calendario Corsi\"  e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (8, 897, 'Corso di cucina per cuochi', 8, 15, 500.00, 'Un corso ben strutturato con teoria e pratica. E\' una guida per acquisire le tecniche base di cucina e apprendere l\'aspetto merceologico degli alimenti, l\'organizzazione di una cucina e le sue figure professionali. Un corso ideato per permettere a tutti, in tempi ristretti, di conoscere attraverso l\'esecuzione di ricette base le nozioni fondamentali del cucinare, la costruzione di un menu e la presentazione del piatto. Ogni argomento verrà trattato con la massima cura e correlato da utili dispense, dalle paste alle verdure, dal pesce alla carne, dagli antipasti alla pasticceria e tante altre informazioni, tutte finalizzate a formare una valida figura professionale. Consegna dell\'attestato di partecipazione con valutazione. La Direzione si riserva, a suo insindacabile giudizio, di far frequentare agli allievi più meritevoli stages formativi gratuiti presso aziende della ristorazione.\r\n\r\nImportante!!!\r\nIl presente corso verrà erogato nel/i giorno/i\r\nindicato/i nel \"Calendario Corsi\" e osserverà la durata di quattro ore (ore 18.00-22.00) per ogni giorno indicato.\r\n\r\n');
+INSERT INTO corso(id, codice, titolo, id_categoria, max_partecipanti, costo, descrizione) VALUES (9, 898, 'Corso di cucina indiana', 7, 25, 750.00, 'Un corso da non perdere');
+
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (1, 1, '2010-05-07', 2, 'Aula 1', 'C. Amato', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (2, 2, '2010-05-11', 1, 'Aula 2', 'F. Beatini', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (3, 4, '2010-05-19', 1, 'Aula 3', 'T. Mita', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (4, 5, '2010-05-03', 1, 'Aula 2', 'D.Priori', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (5, 6, '2010-05-28', 1, 'Aula 1', 'C. Amato', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (6, 7, '2010-05-30', 7, 'Aula 3', 'C. Amato', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (7, 8, '2010-06-01', 5, 'Aula 2', 'D. Priori', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (8, 9, '2010-05-30', 14, 'Aula 1', 'F. Beatini', false);
+INSERT INTO edizione(id, id_corso, data_inizio, durata, aula, docente, terminata) VALUES (9, 4, '2010-04-28', 7, 'Aula3', 'M. Moretti', false);
+
+INSERT INTO iscritto(id, id_edizione, id_utente) VALUES (1, 1, 1);
+INSERT INTO iscritto(id, id_edizione, id_utente) VALUES (2, 1, 2);
+INSERT INTO iscritto(id, id_edizione, id_utente) VALUES (3, 2, 3);
+INSERT INTO iscritto(id, id_edizione, id_utente) VALUES (4, 3, 4);
+INSERT INTO iscritto(id, id_edizione, id_utente) VALUES (5, 4, 5);
+
+INSERT INTO feedback(id, id_edizione, id_utente, descrizione, voto) VALUES (1, 1, 1, 'da consigliare!!!', 8);
+INSERT INTO feedback(id, id_edizione, id_utente, descrizione, voto) VALUES (2, 1, 2, 'veramente interessante.', 9);
+INSERT INTO feedback(id, id_edizione, id_utente, descrizione, voto) VALUES (3, 2, 3, 'ottimi contenuti, ottimo insegnante', 10);
+INSERT INTO feedback(id, id_edizione, id_utente, descrizione, voto) VALUES (4, 3, 4, 'breve ma ben strutturato', 7);
+INSERT INTO feedback(id, id_edizione, id_utente, descrizione, voto) VALUES (5, 4, 5, 'esaustivo!!!', 8);
