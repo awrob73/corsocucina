@@ -33,6 +33,13 @@ public class Corso {
 		this.descrizione = descrizione;
 	}
 
+	public Corso(int codice, String titolo, Categoria categoria, double costo) {
+		this.codice = codice;
+		this.titolo = titolo;
+		this.categoria = categoria;
+		this.costo = costo;
+	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
