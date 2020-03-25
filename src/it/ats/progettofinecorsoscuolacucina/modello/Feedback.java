@@ -49,6 +49,22 @@ public class Feedback {
 		return utente;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public void setEdizione(Edizione edizione) {
+		this.edizione = edizione;
+	}
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
 	@Override
 	public String toString() {
 		return "Feedback [descrizione=" + descrizione + ", voto=" + voto + ", edizione=" + edizione + ", utente="

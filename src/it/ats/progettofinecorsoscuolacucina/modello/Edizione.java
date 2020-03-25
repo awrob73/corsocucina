@@ -33,6 +33,10 @@ public class Edizione {
 		this.terminata = terminata;
 	}
 
+	public Edizione() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean isTerminata() {
 		return terminata;
 	}
@@ -63,6 +67,30 @@ public class Edizione {
 
 	public String getDocente() {
 		return docente;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setCorso(Corso corso) {
+		this.corso = corso;
+	}
+
+	public void setDataInizio(Date dataInizio) {
+		this.dataInizio = dataInizio;
+	}
+
+	public void setDurata(int durata) {
+		this.durata = durata;
+	}
+
+	public void setAula(String aula) {
+		this.aula = aula;
+	}
+
+	public void setDocente(String docente) {
+		this.docente = docente;
 	}
 
 	@Override

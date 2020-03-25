@@ -64,6 +64,30 @@ public class Corso {
 	public double getCosto() {
 		return costo;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setCodice(int codice) {
+		this.codice = codice;
+	}
+
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public void setMaxPartecipanti(int maxPartecipanti) {
+		this.maxPartecipanti = maxPartecipanti;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
 
 	@Override
 	public String toString() {

@@ -12,6 +12,7 @@ public class Categoria {
 		this.descrizione = descrizione;
 	}
 
+	
 	public Categoria(long id, String descrizione) {
 		this.id = id;
 		this.descrizione = descrizione;
