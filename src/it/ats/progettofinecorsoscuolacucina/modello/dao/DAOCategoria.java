@@ -1,6 +1,8 @@
 package it.ats.progettofinecorsoscuolacucina.modello.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Categoria;
@@ -15,7 +17,17 @@ public class DAOCategoria {
 	 * 
 	 */
 	public void inserisci(Connection connection, String descrizione) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+				Categoria c = new Categoria();
+				connection.prepareStatement("insert into categoria values(?,?)");
+				preparedStatement.setLong(1, c.getId());
+				preparedStatement.setString(2, descrizione);
+				preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore registrazione");
+		}
 	}
 
 	/*
@@ -23,7 +35,16 @@ public class DAOCategoria {
 	 * suo id. Se la categoria non esiste si solleva una eccezione
 	 */
 	public void modifica(Connection connection, Categoria c) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+				connection.prepareStatement("update categoria set categoria = ? where id = ?");
+				preparedStatement.setLong(2, c.getId());
+				preparedStatement.setString(1, c.getDescrizione());
+				preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore registrazione");
+		}
 	}
 
 	/*
@@ -32,7 +53,15 @@ public class DAOCategoria {
 	 * cancellabile si solleva una eccezione
 	 */
 	public void cancella(Connection connection, long idCategoria) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			connection.prepareStatement("delete from categoria where id = ?");
+			preparedStatement.setLong(1, idCategoria);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore registrazione");
+		}
 	}
 
 	/*
@@ -40,7 +69,15 @@ public class DAOCategoria {
 	 * esiste si solleva una eccezione
 	 */
 	public Categoria cercaPerId(Connection connection, long idCategoria) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			connection.prepareStatement("select * from categoria where id = ?");
+			preparedStatement.setLong(1, idCategoria);
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore registrazione");
+		}
 		return null;
 	}
 
@@ -49,7 +86,14 @@ public class DAOCategoria {
 	 * lista vuota
 	 */
 	public List<Categoria> cercaTutte(Connection connection) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			connection.prepareStatement("select * from categoria");
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore registrazione");
+		}
 		return null;
 	}
 
