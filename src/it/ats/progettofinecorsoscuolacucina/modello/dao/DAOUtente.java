@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.ats.progettofinecorsoscuolacucina.modello.Categoria;
+import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.Edizione;
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
@@ -131,7 +133,6 @@ public class DAOUtente {
 
 			if (rs.next()) {
 
-				
 				u.setId(rs.getLong("id"));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
@@ -170,7 +171,6 @@ public class DAOUtente {
 		}
 	}
 
-
 	/*
 	 * Cancellazione di una iscrizione ad una edizione, nota: quando si cancella
 	 * l'iscrizione, sia l'utente che l'edizione non devono essere cancellati. Se
@@ -179,7 +179,8 @@ public class DAOUtente {
 	public void cancellaIscrizioneUtente(Connection connection, long idEdizione, long idUtente) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = connection.prepareStatement("delete from iscritto where (id_edizione=? and id_utente=?);");
+			preparedStatement = connection
+					.prepareStatement("delete from iscritto where (id_edizione=? and id_utente=?);");
 			preparedStatement.setLong(1, idEdizione);
 			preparedStatement.setLong(2, idUtente);
 			preparedStatement.executeUpdate();
@@ -190,32 +191,37 @@ public class DAOUtente {
 		}
 	}
 
-
-
 	/*
 	 * Lettura di tutte le edizioni a cui è iscritto un utente. Se l'utente non
 	 * esiste o non è iscritto a nessuna edizione ritorna una lista vuota
 	 */
 	public List<Edizione> cercaIscrizioniUtente(Connection connection, long idUtente) throws DAOException {
 		PreparedStatement preparedStatement = null;
-		List<Edizione> lista = new ArrayList<Edizione>();
 		try {
-			preparedStatement = connection.prepareStatement("select * from edizione join iscritto on edizione.id=iscritto.id_edizione where id_utente=?;");
-			preparedStatement.setLong(1, idUtente);
-			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()) {
-				Edizione e= new Edizione();
-				e.setAula(rs.getString("aula"));
-				e.getCorso().setId(rs.getLong("id_corso"));
-				e.setDataInizio(rs.getDate("data_inizio"));
-				e.setDocente(rs.getString("docente"));
-				e.setDurata(rs.getInt("durata"));
-				e.setTerminata(rs.getBoolean("terminata"));
-				lista.add(e);
-				
-				
-			}
-			return lista;
+		preparedStatement = connection.prepareStatement(
+				"select corso.codice,corso.titolo,categoria.descrizione,edizione.data_inizio,edizione.durata,edizione.aula,edizione.docente,edizione.terminata,corso.costo"
+						+ "from iscritto join edizione on edizione.id=iscritto.id_edizione"
+						+ "join corso on edizione.id_corso=corso.id "
+						+ "join categoria on categoria.id=corso.id_categoria" + "where id_utente=?");
+
+		preparedStatement.setLong(1, idUtente);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		List<Edizione> lista = new ArrayList<>();
+		
+		while (resultSet.next()) {
+
+			Categoria categoria = new Categoria(resultSet.getString("categoria.descrizione"));
+			Corso corso = new Corso(resultSet.getInt("codice"), resultSet.getString("titolo"), categoria,
+					resultSet.getDouble("costo"));
+
+			Edizione e = new Edizione(corso, resultSet.getDate("data_inizio"), resultSet.getInt("durata"),
+					resultSet.getString("aula"), resultSet.getString("docente"), resultSet.getBoolean("terminata"));
+
+			lista.add(e);
+		}
+		return lista;
 
 		} catch (SQLException e) {
 			e.printStackTrace();//
@@ -231,10 +237,11 @@ public class DAOUtente {
 		PreparedStatement preparedStatement = null;
 		List<Utente> lista = new ArrayList<Utente>();
 		try {
-			preparedStatement = connection.prepareStatement("select * from utente inner join iscritto on iscritto.id_utente = utente.id inner join edizione on edizione.id=iscritto.id_edizione where edizione.id=?;");
+			preparedStatement = connection.prepareStatement(
+					"select * from utente inner join iscritto on iscritto.id_utente = utente.id inner join edizione on edizione.id=iscritto.id_edizione where edizione.id=?;");
 			preparedStatement.setLong(1, idEdizione);
 			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Utente u = new Utente();
 				u.setId(rs.getLong("id"));
 				u.setUsername(rs.getString("username"));
@@ -245,8 +252,7 @@ public class DAOUtente {
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
 				lista.add(u);
-				
-				
+
 			}
 			return lista;
 
@@ -260,16 +266,47 @@ public class DAOUtente {
 	 * Ritorna il numero di utenti iscritti ad una certa edizione
 	 */
 	public int getNumeroIscritti(Connection connection, long idEdizione) throws DAOException {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement preparedStatement = null;
+		int numeroIscritti = 0;
+		try {
+			preparedStatement = connection.prepareStatement(
+					"select count(id_utente) as numero from iscritto inner join edizione on edizione.id=iscritto.id_edizione where id_edizione=?;");
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				numeroIscritti = rs.getInt("numero");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Errore numero iscritti");
+		}
+		return numeroIscritti;
 	}
 
 	/*
 	 * Ritorna un utente sulla base delle sue credenziali
 	 */
 	public int cercaPerCredenziali(Connection connection, String username, String password) throws DAOException {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement preparedStatement = null;
+		int verifica = 0;
+		String verificaPassword = null;
+		try {
+			preparedStatement = connection.prepareStatement("select * from utente where username=?");
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				verificaPassword = rs.getString("password");
+				if(verificaPassword.equals(password)) {
+					verifica =1;
+				}
+
+			}
+			return verifica;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("password non corretta");
+		}
+		
 	}
 
 	private DAOUtente() {
