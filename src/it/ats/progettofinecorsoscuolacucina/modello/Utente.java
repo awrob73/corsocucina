@@ -13,6 +13,12 @@ public class Utente {
 	private String email;
 	private long telefono;
 	private boolean admin;
+	
+	public Utente() {
+		super();
+	}
+
+	
 
 	public Utente(String username, String password, String nome, String cognome, Date dataNascita, String email,
 			long telefono, boolean admin) {
@@ -83,6 +89,34 @@ public class Utente {
 
 	public boolean isAdmin() {
 		return admin;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setTelefono(long telefono) {
+		this.telefono = telefono;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	@Override
