@@ -18,7 +18,7 @@ public class Utente {
 		super();
 	}
 
-	
+	//
 
 	public Utente(String username, String password, String nome, String cognome, Date dataNascita, String email,
 			long telefono, boolean admin) {

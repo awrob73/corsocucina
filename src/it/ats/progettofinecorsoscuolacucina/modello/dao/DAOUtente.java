@@ -109,7 +109,7 @@ public class DAOUtente {
 			}
 			
 		} catch (SQLException e){
-			e.printStackTrace();
+			e.printStackTrace();//
 			throw new DAOException("Impossibile trovare utenti");
 		}
 		
