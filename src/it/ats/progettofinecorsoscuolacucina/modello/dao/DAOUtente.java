@@ -80,7 +80,6 @@ public class DAOUtente {
 			throw new DAOException("Impossibile cancellare");
 		}
 
-
 	}
 
 	/*
@@ -88,14 +87,15 @@ public class DAOUtente {
 	 * metodo ritorna una lista vuota
 	 */
 	public List<Utente> cercaTutti(Connection connection) throws DAOException {
-		
+
 		PreparedStatement preparedStatement = null;
+		List<Utente> list = new ArrayList<Utente>();
 		try {
 			preparedStatement = connection.prepareStatement("select * from utente");
 			ResultSet rs = preparedStatement.executeQuery();
-			List<Utente> list = new ArrayList<Utente>();
-			while(rs.next()) {
-				
+
+			while (rs.next()) {
+
 				Utente u = new Utente();
 				u.setId(rs.getLong("id"));
 				u.setUsername(rs.getString("username"));
@@ -105,16 +105,16 @@ public class DAOUtente {
 				u.setDataNascita(rs.getDate("data_nascita"));
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
-				
+				list.add(u);
+
 			}
-			
-		} catch (SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();//
 			throw new DAOException("Impossibile trovare utenti");
 		}
-		
-		
-		return null;
+
+		return list;
 	}
 
 	/*
@@ -122,8 +122,32 @@ public class DAOUtente {
 	 * eccezione
 	 */
 	public Utente cercaPerId(Connection connection, long id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement preparedStatement = null;
+		Utente u = new Utente();
+		try {
+			preparedStatement = connection.prepareStatement("select * from utente where id=?");
+			preparedStatement.setLong(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+
+				
+				u.setId(rs.getLong("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setNome(rs.getString("nome"));
+				u.setCognome(rs.getString("cognome"));
+				u.setDataNascita(rs.getDate("data_nascita"));
+				u.setEmail(rs.getString("email"));
+				u.setTelefono(rs.getLong("telefono"));
+
+			}
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Utente non trovato");
+		}
 	}
 
 	/*
@@ -133,9 +157,19 @@ public class DAOUtente {
 	 * solleva una eccezione
 	 */
 	public void iscriviUtente(Connection connection, long idEdizione, long idUtente) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("insert into iscritto(id_edizione,id_utente) values(?,?);");
+			preparedStatement.setLong(1, idEdizione);
+			preparedStatement.setLong(2, idUtente);
+			preparedStatement.executeUpdate();
 
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore iscrizione corso");
+		}
 	}
+
 
 	/*
 	 * Cancellazione di una iscrizione ad una edizione, nota: quando si cancella
@@ -143,17 +177,50 @@ public class DAOUtente {
 	 * l'utente e/o l'edizione non esistono si solleva una eccezione
 	 */
 	public void cancellaIscrizioneUtente(Connection connection, long idEdizione, long idUtente) throws DAOException {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("delete from iscritto where (id_edizione=? and id_utente=?);");
+			preparedStatement.setLong(1, idEdizione);
+			preparedStatement.setLong(2, idUtente);
+			preparedStatement.executeUpdate();
 
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
 	}
+
+
 
 	/*
 	 * Lettura di tutte le edizioni a cui è iscritto un utente. Se l'utente non
 	 * esiste o non è iscritto a nessuna edizione ritorna una lista vuota
 	 */
 	public List<Edizione> cercaIscrizioniUtente(Connection connection, long idUtente) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement preparedStatement = null;
+		List<Edizione> lista = new ArrayList<Edizione>();
+		try {
+			preparedStatement = connection.prepareStatement("select * from edizione join iscritto on edizione.id=iscritto.id_edizione where id_utente=?;");
+			preparedStatement.setLong(1, idUtente);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				Edizione e= new Edizione();
+				e.setAula(rs.getString("aula"));
+				e.getCorso().setId(rs.getLong("id_corso"));
+				e.setDataInizio(rs.getDate("data_inizio"));
+				e.setDocente(rs.getString("docente"));
+				e.setDurata(rs.getInt("durata"));
+				e.setTerminata(rs.getBoolean("terminata"));
+				lista.add(e);
+				
+				
+			}
+			return lista;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
 	}
 
 	/*
@@ -161,8 +228,32 @@ public class DAOUtente {
 	 * esiste o non vi sono utenti iscritti ritorna una lista vuota
 	 */
 	public List<Utente> cercaUtentiPerEdizione(Connection connection, long idEdizione) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement preparedStatement = null;
+		List<Utente> lista = new ArrayList<Utente>();
+		try {
+			preparedStatement = connection.prepareStatement("select * from utente inner join iscritto on iscritto.id_utente = utente.id inner join edizione on edizione.id=iscritto.id_edizione where edizione.id=?;");
+			preparedStatement.setLong(1, idEdizione);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				Utente u = new Utente();
+				u.setId(rs.getLong("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setNome(rs.getString("nome"));
+				u.setCognome(rs.getString("cognome"));
+				u.setDataNascita(rs.getDate("data_nascita"));
+				u.setEmail(rs.getString("email"));
+				u.setTelefono(rs.getLong("telefono"));
+				lista.add(u);
+				
+				
+			}
+			return lista;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
 	}
 
 	/*
