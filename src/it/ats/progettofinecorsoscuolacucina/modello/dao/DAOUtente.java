@@ -3,9 +3,7 @@ package it.ats.progettofinecorsoscuolacucina.modello.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Edizione;
@@ -45,22 +43,7 @@ public class DAOUtente {
 	 * Se l'utente non esiste si solleva una eccezione
 	 */
 	public void modifica(Connection connection, Utente u) throws DAOException {
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = connection.prepareStatement(
-					"update utente set  password = ?, nome = ?, cognome = ?, data_nascita = ?, email = ?, telefono = ?) where username = ?");
-			preparedStatement.setString(7, u.getUsername());
-			preparedStatement.setString(1, u.getPassword());
-			preparedStatement.setString(2, u.getNome());
-			preparedStatement.setString(3, u.getCognome());
-			preparedStatement.setDate(4, new Date(u.getDataNascita().getTime()));
-			preparedStatement.setString(5, u.getEmail());
-			preparedStatement.setLong(6, u.getTelefono());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Impossibile modificare");
-		}
+		// TODO Auto-generated method stub
 
 	}
 
@@ -70,16 +53,7 @@ public class DAOUtente {
 	 * solleva una eccezione
 	 */
 	public void cancella(Connection connection, long id) throws DAOException {
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = connection.prepareStatement("delete from utente where id = ?");
-			preparedStatement.setLong(1, id);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Impossibile cancellare");
-		}
-
+		// TODO Auto-generated method stub
 
 	}
 
@@ -88,32 +62,7 @@ public class DAOUtente {
 	 * metodo ritorna una lista vuota
 	 */
 	public List<Utente> cercaTutti(Connection connection) throws DAOException {
-		
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = connection.prepareStatement("select * from utente");
-			ResultSet rs = preparedStatement.executeQuery();
-			List<Utente> list = new ArrayList<Utente>();
-			while(rs.next()) {
-				
-				Utente u = new Utente();
-				u.setId(rs.getLong("id"));
-				u.setUsername(rs.getString("username"));
-				u.setPassword(rs.getString("password"));
-				u.setNome(rs.getString("nome"));
-				u.setCognome(rs.getString("cognome"));
-				u.setDataNascita(rs.getDate("data_nascita"));
-				u.setEmail(rs.getString("email"));
-				u.setTelefono(rs.getLong("telefono"));
-				
-			}
-			
-		} catch (SQLException e){
-			e.printStackTrace();
-			throw new DAOException("Impossibile trovare utenti");
-		}
-		
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
