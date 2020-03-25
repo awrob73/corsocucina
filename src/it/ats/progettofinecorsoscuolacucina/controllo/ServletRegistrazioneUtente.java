@@ -51,7 +51,7 @@ public class ServletRegistrazioneUtente extends HttpServlet {
 			throw new ServletException(e.getMessage());
 		}
 		request.setAttribute("user", u);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/home.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/paginaPrivataUtente.jsp");
 		requestDispatcher.forward(request, response);
 	}
 
