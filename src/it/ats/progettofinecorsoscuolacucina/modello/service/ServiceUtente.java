@@ -2,10 +2,12 @@ package it.ats.progettofinecorsoscuolacucina.modello.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
+import it.ats.progettofinecorsoscuolacucina.modello.dao.DAOFeedback;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.DAOUtente;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.DataSource;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
@@ -14,13 +16,15 @@ import it.ats.progettofinecorsoscuolacucina.modello.service.eccezioni.ServiceExc
 public class ServiceUtente {
 
 	private static ServiceUtente instance;
-	// Dichiarare qui tutti i DAO di cui si ha bisogno
 	private DAOUtente daoU;
-
+	private DAOFeedback daoF;
+	private DataSource dataSource;
+	
 	// Inizializzare / richiamare qui tutti i DAO di cui si ha bisogno
 	private ServiceUtente() {
 		super();
 		this.daoU = DAOUtente.getInstance();
+		this.daoF = DAOFeedback.getInstance();
 	}
 
 	/*
@@ -33,7 +37,6 @@ public class ServiceUtente {
 			connection = DataSource.getInstance().getConnection();
 			daoU.inserisci(connection, u);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		} finally {
@@ -41,7 +44,6 @@ public class ServiceUtente {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					throw new ServiceException(e.getMessage());
 				}
@@ -55,9 +57,21 @@ public class ServiceUtente {
 	 * Se l'utente è presente viene recuperato e ritornato. Se l'utente non è
 	 * presente si solleva una eccezione
 	 */
-	public Utente checkCredenziali(String username, String password) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public Utente checkCredenziali(String username, String password) throws Exception {
+		Connection connection = null;
+		Utente u = new Utente();
+		try {
+			connection = DataSource.getInstance().getConnection();
+			
+			int i = daoU.cercaPerCredenziali(connection, username, password);
+			if(i==1) {
+			u = daoU.cercaPerUsername(connection, username);
+			}
+			connection.commit();
+		} catch (DAOException | SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	/*
@@ -66,8 +80,11 @@ public class ServiceUtente {
 	 * edizione), se l'utente non è cancellabile si solleva una eccezione
 	 * 
 	 */
-	public void cancellaRegistrazioneUtente(long idUtente) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void cancellaRegistrazioneUtente(long idUtente) throws Exception {
+		Connection connection = null;
+		connection = DataSource.getInstance().getConnection();
+		daoU.cancella(connection, idUtente);
+		connection.commit();
 
 	}
 
@@ -75,18 +92,24 @@ public class ServiceUtente {
 	 * Modifica tutti i dati di un utente. L'utente viene individuato in base
 	 * all'id. Se l'utente non è presente si solleva una eccezione
 	 */
-	public void modificaDatiUtente(Utente u) throws ServiceException {
-		// TODO Auto-generated method stub
-
+	public void modificaDatiUtente(Utente u) throws Exception {
+		Connection connection = null;
+		connection = DataSource.getInstance().getConnection();
+		daoU.modifica(connection, u);
+		connection.commit();
 	}
 
 	/*
 	 * Legge tutti gli utenti registrati sul sistema. Se non vi sono utenti il
 	 * metodo ritorna una lista vuota
 	 */
-	public List<Utente> visualizzaUtentiRegistrati() throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Utente> visualizzaUtentiRegistrati() throws Exception {
+		Connection connection = null;
+		 
+		connection = DataSource.getInstance().getConnection();
+		List<Utente> list= daoU.cercaTutti(connection);
+		connection.commit();
+		return list;
 	}
 
 	/*
@@ -95,9 +118,11 @@ public class ServiceUtente {
 	 * già fatto in precedenza (un solo feedback ad utente per edizione). Se
 	 * l'utente non può insierire un feedback si solleva una eccezione
 	 */
-	public void inserisciFeedback(Feedback feedback) throws ServiceException {
-		// TODO Auto-generated method stub
-
+	public void inserisciFeedback(Feedback feedback) throws Exception {
+		Connection connection = null;
+		connection = DataSource.getInstance().getConnection();
+		daoF.inserisci(connection, feedback);
+		connection.commit();
 	}
 
 	/*
@@ -106,8 +131,11 @@ public class ServiceUtente {
 	 * mese dal termine della edizione del corso. Se l'utente non può modificare un
 	 * feedback si solleva una eccezione
 	 */
-	public void modificaFeedback(Feedback feedback) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void modificaFeedback(Feedback feedback) throws Exception {
+		Connection connection = null;
+		connection = DataSource.getInstance().getConnection();
+		daoF.modifica(connection, feedback);
+		connection.commit();
 
 	}
 
@@ -117,8 +145,11 @@ public class ServiceUtente {
 	 * edizione del corso. Se l'utente non può cancellare un feedback si solleva una
 	 * eccezione
 	 */
-	public void cancellaFeedback(long idFeedback) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void cancellaFeedback(long idFeedback) throws Exception {
+		Connection connection = null;
+		connection = DataSource.getInstance().getConnection();
+		daoF.cancella(connection, idFeedback);
+		connection.commit();
 
 	}
 
