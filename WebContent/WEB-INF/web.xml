@@ -78,4 +78,14 @@
     <servlet-name>ServletCancellaUtente</servlet-name>
     <url-pattern>/cancella</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletLogin</display-name>
+    <servlet-name>ServletLogin</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLogin</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
 </web-app>
