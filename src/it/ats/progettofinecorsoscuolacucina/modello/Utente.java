@@ -12,7 +12,7 @@ public class Utente {
 	private Date dataNascita;
 	private String email;
 	private long telefono;
-	private boolean admin;
+	private boolean admin = false;
 	
 	public Utente() {
 		super();
