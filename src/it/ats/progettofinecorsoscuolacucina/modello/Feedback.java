@@ -8,6 +8,18 @@ public class Feedback {
 	private Edizione edizione;
 	private Utente utente;
 
+	public Feedback(int id, String descrizione, int voto, Edizione edizione) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+		this.voto = voto;
+		this.edizione = edizione;
+	}
+	
+	public Feedback() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Feedback(String descrizione, int voto, Edizione edizione, Utente utente) {
 		super();
 		this.descrizione = descrizione;

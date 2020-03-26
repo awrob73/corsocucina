@@ -10,7 +10,15 @@ public class Corso {
 	private double costo;
 	private String descrizione;
 	
-	
+	public Corso(long id, int codice, String titolo, int maxPartecipanti, double costo,
+			String descrizione) {
+		this.id = id;
+		this.codice = codice;
+		this.titolo = titolo;
+		this.maxPartecipanti = maxPartecipanti;
+		this.costo = costo;
+		this.descrizione = descrizione;
+	}
 
 	public Corso(int codice, String titolo, Categoria categoria, int maxPartecipanti, double costo,
 			String descrizione) {
