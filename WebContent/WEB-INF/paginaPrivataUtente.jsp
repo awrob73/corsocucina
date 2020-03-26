@@ -15,23 +15,23 @@
 <h2>Benvenuto</h2>
 Utente registrato: <strong> <%= u.getNome() %> <%= u.getCognome() %> </strong><br>
 
-<form action="%%%%%">
+<form action="visualizzaDati" method="get">
 <input type="hidden" name="username" value=<%=u.getUsername()%>>
 <input type="submit" value='Visualizza dati'>
 </form>
 <p>
-<form action="%%%%%">
+<form action="cercaNuoviCorsi" method="get">
 <input type="hidden" name="username" value=<%=u.getUsername()%>>
 <input type="submit" value="Cerca nuovi corsi">
 </form>
 <p>
-<form action="%%%%%">
+<form action="corsiPersonali" method="get">
 <input type="hidden" name="username" value=<%=u.getUsername()%>>
 <input type="submit" value="I miei corsi">
 </form>
 <p>
 
-<form action="logout">
+<form action="logout" method="get">
 <input type='hidden' name='username' value=<%=u.getUsername()%>>
 <input type='submit' value='Logout'>
 </form>
