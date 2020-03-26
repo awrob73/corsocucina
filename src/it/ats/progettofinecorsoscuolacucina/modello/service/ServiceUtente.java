@@ -136,7 +136,6 @@ public class ServiceUtente {
 		connection = DataSource.getInstance().getConnection();
 		daoF.modifica(connection, feedback);
 		connection.commit();
-
 	}
 
 	/*
@@ -150,7 +149,6 @@ public class ServiceUtente {
 		connection = DataSource.getInstance().getConnection();
 		daoF.cancella(connection, idFeedback);
 		connection.commit();
-
 	}
 
 	public static ServiceUtente getInstance() {
