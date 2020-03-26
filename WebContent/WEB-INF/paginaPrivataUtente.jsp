@@ -10,7 +10,7 @@
 <body>
 <%Utente u = (Utente)request.getAttribute("user"); %>
  
-<div class="paginaAllievoDiv">
+<div class="paginaUtenteDiv">
 
 <h2>Benvenuto</h2>
 Utente registrato: <strong> <%= u.getNome() %> <%= u.getCognome() %> </strong><br>
