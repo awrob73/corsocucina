@@ -143,6 +143,34 @@ public class DAOCorso {
 		}
 	}
 	
+	public List<Corso> cercaPerIdCategoria(Connection connection, long idCategoria) throws DAOException{
+		PreparedStatement preparedStatement = null;
+		List<Corso> list = new ArrayList<Corso>();
+		
+		try {
+			preparedStatement = connection.prepareStatement("select * from corso where id_categoria=?");
+			preparedStatement.setLong(1, idCategoria);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Corso corso = new Corso();
+				corso.setId(rs.getLong("id"));
+				corso.setCodice(rs.getInt("codice"));
+				corso.setTitolo(rs.getString("titolo"));
+				corso.getCategoria().setId(rs.getLong("id_categoria"));
+				corso.setMaxPartecipanti(rs.getInt("max_partecipanti"));
+				corso.setCosto(rs.getDouble("costo"));
+     			corso.setDescrizione(rs.getString("descrizione"));
+     			list.add(corso);
+			}
+			return list;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Corsi della categoria non trovati");
+		}
+	}
+	
 	private DAOCorso() {
 		super();
 	}
