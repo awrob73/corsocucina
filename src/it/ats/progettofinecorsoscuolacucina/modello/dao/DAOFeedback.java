@@ -77,6 +77,27 @@ public class DAOFeedback {
 		}
 	}
 	
+	public Feedback cercaFeedback(Connection connection, long id) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		Feedback feedback = new Feedback();
+		try {
+			preparedStatement = connection.prepareStatement("select * from feedback where id?;");
+			preparedStatement.setLong(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				feedback.setId(rs.getInt("id"));
+				feedback.setDescrizione(rs.getString("descrizione"));
+				feedback.setVoto(rs.getInt("voto"));
+				feedback.getUtente().setId(rs.getLong("id_utente"));
+				feedback.getEdizione().setId(rs.getLong("id_edizione"));
+			}
+			return feedback;
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Feedback non trovato");
+		}
+	}
+	
 	/*
 	 * Lettura di un singolo feedback scritto da un utente per una certa edizione.
 	 * Se il feedback non esiste si solleva una eccezione
@@ -88,20 +109,15 @@ public class DAOFeedback {
 			preparedStatement = connection.prepareStatement("select * from feedback where (id_utente=? AND id_edizione=?);");
 			preparedStatement.setLong(1, idUtente);
 			preparedStatement.setLong(2, idEdizione);
-			
 			ResultSet rs = preparedStatement.executeQuery();
-
 			if (rs.next()) {
-				
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
 				feedback.getUtente().setId(rs.getLong("id_utente"));
 				feedback.getEdizione().setId(rs.getLong("id_edizione"));
-
 			}
 			return feedback;
-
 		} catch (SQLException e) {
 			e.printStackTrace();//
 			throw new DAOException("Feedback non trovato");
@@ -119,10 +135,8 @@ public class DAOFeedback {
 			preparedStatement = connection.prepareStatement("select * from feedback where id_edizione=?;");
 			preparedStatement.setLong(1, idEdizione);
 			ResultSet rs = preparedStatement.executeQuery();
-			
 			while (rs.next()) {
 				Feedback feedback = new Feedback();
-				
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
@@ -131,7 +145,6 @@ public class DAOFeedback {
 				list.add(feedback);
 			}
 			return list;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();//
 			throw new DAOException("Errore lettura feedback");
@@ -149,10 +162,8 @@ public class DAOFeedback {
 			preparedStatement = connection.prepareStatement("select * from feedback where id_utente=?;");
 			preparedStatement.setLong(1, idUtente);
 			ResultSet rs = preparedStatement.executeQuery();
-			
 			while (rs.next()) {
 				Feedback feedback = new Feedback();
-				
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
@@ -161,7 +172,6 @@ public class DAOFeedback {
 				list.add(feedback);
 			}
 			return list;
-
 		} catch (SQLException e) {
 			e.printStackTrace();//
 			throw new DAOException("Errore lettura feedback");
@@ -174,12 +184,10 @@ public class DAOFeedback {
 	 * vuota
 	 */
 	public List<Feedback> cercaFeedbackPerCorso(Connection connection, long idCorso) throws DAOException {
-	
 		PreparedStatement preparedStatement = null;
 		List<Feedback> list = new ArrayList<Feedback>();
 		try {
 			preparedStatement = connection.prepareStatement
-					
 					("SELECT f.id,f.descrizione AS f_descrizione,f.voto,"
 							+ "e.data_inizio, e.durata, e.aula, e.docente, e.terminata,"
 							+ "c.id AS id_corso, c.codice, c.titolo, c.max_partecipanti, c.costo, c.descrizione AS c_descrizione"
@@ -187,29 +195,21 @@ public class DAOFeedback {
 							+ "JOIN edizione AS e ON f.id_edizione =e.id"
 							+ "JOIN corso AS c ON e.id_corso = c.id "
 							+ "WHERE e.id_corso = ?;");
-
-
+			
 			preparedStatement.setLong(1, idCorso);
 			ResultSet rs = preparedStatement.executeQuery();
-			
 			while (rs.next()) {
-				
-				// aggiunto costruttore in modello CORSO
-				
 				Corso corso = new Corso(rs.getLong("id_corso"),rs.getInt("c.codice"),rs.getString("c.titolo"), 
 				              rs.getInt("c.max_partecipanti"), rs.getDouble("c.costo"), rs.getString("c_descrizione"));
 				
 				Edizione edizione = new Edizione(corso,rs.getDate("data_inizio"), rs.getInt("durata"),
 						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
 				
-				// aggiunto costruttore in modello FEEDBACK
-				
 				Feedback feedback = new Feedback(rs.getInt("id"),rs.getString("f_descrizione"), rs.getInt("voto"),edizione);
 				
 				list.add(feedback);
 			}
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 			throw new DAOException("Errore ricerca");
 		}

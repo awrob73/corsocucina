@@ -1,6 +1,7 @@
 package it.ats.progettofinecorsoscuolacucina.modello.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.DAOCorso;
@@ -44,6 +45,46 @@ public class ServiceFeedback {
 		connection = DataSource.getInstance().getConnection();
 		daoF.cancella(connection, idFeedback);
 		connection.commit();
+	}
+	
+	public Feedback cercaFeedbackId(long id) throws Exception{
+		Connection conn = null;
+		conn = DataSource.getInstance().getConnection();
+		Feedback f = daoF.cercaFeedback(conn, id);
+		conn.commit();
+		return f;
+	}
+	
+	public Feedback cercaFeedback(long idUtente, long idEdizione) throws Exception{
+		Connection conn = null;
+		conn = DataSource.getInstance().getConnection();
+		Feedback f = daoF.cercaSingoloFeedback(conn, idUtente, idEdizione);
+		conn.commit();
+		return f;
+	}
+	
+	public List<Feedback> cercaFeedbackEdizione(long idEdizione) throws Exception{
+		Connection conn = null;
+		conn = DataSource.getInstance().getConnection();
+		List<Feedback> list = daoF.cercaPerEdizione(conn, idEdizione);
+		conn.commit();
+		return list;
+	}
+	
+	public List<Feedback> cercaFeedbackUtente(long idUtente) throws Exception{
+		Connection conn = null;
+		conn = DataSource.getInstance().getConnection();
+		List<Feedback> list = daoF.cercaPerUtente(conn, idUtente);
+		conn.commit();
+		return list;
+	}
+	
+	public List<Feedback> cercaFeedbackCorso(long idCorso) throws Exception{
+		Connection conn = null;
+		conn = DataSource.getInstance().getConnection();
+		List<Feedback> list = daoF.cercaFeedbackPerCorso(conn, idCorso);
+		conn.commit();
+		return list;
 	}
 	
 }
