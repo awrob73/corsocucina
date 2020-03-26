@@ -437,6 +437,38 @@ public class DAOEdizione {
 		}
 		return listaEdizioni;
 	}
+	
+	public List<Edizione> cercaPerIdCorso(Connection connection, long idCorso) throws DAOException {
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+			ps = connection.prepareStatement(
+					"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE id_corso = ?");
+			ps.setLong(1, idCorso);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+				listaEdizioni.add(ed);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
+	}
 
 	private DAOEdizione() {
 		super();
