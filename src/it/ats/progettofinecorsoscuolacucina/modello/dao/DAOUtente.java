@@ -150,6 +150,34 @@ public class DAOUtente {
 			throw new DAOException("Utente non trovato");
 		}
 	}
+	
+	public Utente cercaPerUsername(Connection connection, String username) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		Utente u = new Utente();
+		try {
+			preparedStatement = connection.prepareStatement("select * from utente where username=?");
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+
+				u.setId(rs.getLong("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setNome(rs.getString("nome"));
+				u.setCognome(rs.getString("cognome"));
+				u.setDataNascita(rs.getDate("data_nascita"));
+				u.setEmail(rs.getString("email"));
+				u.setTelefono(rs.getLong("telefono"));
+
+			}
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Utente non trovato");
+		}
+	}
 
 	/*
 	 * Iscrizione di un certo utente ad una certa edizione di un corso. Sia l'utente
