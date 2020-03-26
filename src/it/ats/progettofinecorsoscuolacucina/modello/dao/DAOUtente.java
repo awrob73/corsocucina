@@ -107,6 +107,7 @@ public class DAOUtente {
 				u.setDataNascita(rs.getDate("data_nascita"));
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
+				u.setAdmin(false);
 				list.add(u);
 
 			}
@@ -141,6 +142,7 @@ public class DAOUtente {
 				u.setDataNascita(rs.getDate("data_nascita"));
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
+				u.setAdmin(false);
 
 			}
 			return u;
@@ -169,6 +171,7 @@ public class DAOUtente {
 				u.setDataNascita(rs.getDate("data_nascita"));
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
+				u.setAdmin(false);
 
 			}
 			return u;
@@ -279,6 +282,7 @@ public class DAOUtente {
 				u.setDataNascita(rs.getDate("data_nascita"));
 				u.setEmail(rs.getString("email"));
 				u.setTelefono(rs.getLong("telefono"));
+				u.setAdmin(false);
 				lista.add(u);
 
 			}
