@@ -39,10 +39,6 @@ public class DataSource {
 		Connection connection;
 		try {
 			connection = dbDriver.connect(url, dbProperties);
-			if(connection==null) {
-				instance.getConnection();
-			}	
-			connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
