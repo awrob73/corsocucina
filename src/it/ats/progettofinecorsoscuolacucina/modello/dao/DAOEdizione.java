@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
 import it.ats.progettofinecorsoscuolacucina.modello.Categoria;
 import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.Edizione;
-import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
 
 public class DAOEdizione {
 
@@ -45,7 +45,18 @@ public class DAOEdizione {
 	 * Se l'edizione non è presente si solleva una eccezione
 	 */
 	public void cancella(Connection connection, long idEdizione) throws DAOException {
-		// TODO Auto-generated method stub
+
+		PreparedStatement preparedStatement = null;
+		try {
+
+			preparedStatement = connection.prepareStatement("delete from edizione where id = ?");
+			preparedStatement.setLong(1, idEdizione);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Impossibile cancellare");
+		}
 
 	}
 
@@ -57,14 +68,15 @@ public class DAOEdizione {
 	public void modifica(Connection connection, Edizione ed) throws DAOException {
 		PreparedStatement ps;
 		try {
-			ps = connection.prepareStatement(
-					"UPDATE edizione SET data_inizio=?, durata=?, aula=?, docente=? WHERE id_edizione= ?");
+			ps = connection.prepareStatement("UPDATE edizione SET data_inizio=?, durata=?, aula=?, docente=? WHERE id= ?");
 			ps.setDate(1, new java.sql.Date(ed.getDataInizio().getTime()));
 			ps.setInt(2, ed.getDurata());
 			ps.setString(3, ed.getAula());
 			ps.setString(4, ed.getDocente());
 			ps.setLong(5, ed.getId());
+
 			ps.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,26 +93,20 @@ public class DAOEdizione {
 		Edizione ed = null;
 		PreparedStatement ps;
 		try {
+
 			ps = connection.prepareStatement(
-					"SELECT e.id as id_edizione, c.id as id_corso, cc.id as id_categoria, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id");
+					"SELECT edizione.id as id_edizione, edizione.*, corso.codice, corso.titolo, corso.descrizione as descrizione_corso, corso.costo, corso.max_partecipanti, categoria.descrizione as descrizione_categoria FROM edizione JOIN corso ON edizione.id_corso = corso.id JOIN categoria ON corso.id_categoria = categoria.id where edizione.id=?");
+			ps.setLong(1, idEdizione);
 			ResultSet rs = ps.executeQuery();
+
 			if (rs.next()) {
-				Date dataInizio = rs.getDate("data_inizio");
-				String aula = rs.getString("aula");
-				String docente = rs.getString("docente");
-				int durata = rs.getInt("durata");
-				boolean terminata = rs.getBoolean("terminata");
-				int idCorso = rs.getInt("id_corso");
-				int codice = rs.getInt("codice");
-				String titolo = rs.getString("titolo");
-				int maxPartecipanti = rs.getInt("max_partecipanti");
-				double costo = rs.getDouble("costo");
-				String descrizioneCorso = rs.getString("descrizione_corso");
-				long idCategoria = rs.getLong("id_categoria");
-				String descrizioneCategoria = rs.getString("descrizione_categoria");
-				Categoria categoria = new Categoria(idCategoria, descrizioneCategoria);
-				Corso corso = new Corso(idCorso, codice, titolo, categoria, maxPartecipanti, costo, descrizioneCorso);
-				ed = new Edizione(idEdizione, corso, dataInizio, durata, aula, docente, terminata);
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(idEdizione, corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -116,29 +122,20 @@ public class DAOEdizione {
 	 */
 	public List<Edizione> cercaTutte(Connection connection) throws DAOException {
 		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
 		PreparedStatement ps;
 		try {
 			ps = connection.prepareStatement(
-					"SELECT e.id as id_edizione, c.id as id_corso, cc.id as id_categoria, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id");
+					"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				int idEdizione = rs.getInt("id_edizione");
-				Date dataInizio = rs.getDate("data_inizio");
-				String aula = rs.getString("aula");
-				String docente = rs.getString("docente");
-				int durata = rs.getInt("durata");
-				boolean terminata = rs.getBoolean("terminata");
-				int idCorso = rs.getInt("id_corso");
-				int codice = rs.getInt("codice");
-				String titolo = rs.getString("titolo");
-				int maxPartecipanti = rs.getInt("max_partecipanti");
-				double costo = rs.getDouble("costo");
-				String descrizioneCorso = rs.getString("descrizione_corso");
-				long idCategoria = rs.getLong("id_categoria");
-				String descrizioneCategoria = rs.getString("descrizione_categoria");
-				Categoria categoria = new Categoria(idCategoria, descrizioneCategoria);
-				Corso corso = new Corso(idCorso, codice, titolo, categoria, maxPartecipanti, costo, descrizioneCorso);
-				Edizione ed = new Edizione(idEdizione, corso, dataInizio, durata, aula, docente, terminata);
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
 				listaEdizioni.add(ed);
 			}
 		} catch (SQLException e) {
@@ -157,7 +154,32 @@ public class DAOEdizione {
 	 * vuota
 	 */
 	public List<Edizione> cercaPerIdUtente(Connection connection, long idUtente) throws DAOException {
-		return null;
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(
+					"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id JOIN iscritto ON iscritto.id_utente=utente.id where utente.id=?");
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+				listaEdizioni.add(ed);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
+
 	}
 
 	/*
@@ -165,10 +187,36 @@ public class DAOEdizione {
 	 * a (inclusi). Se non vi sono edizioni in quel range di date viene ritornata
 	 * una lista vuota
 	 */
-	public List<Edizione> cercaPerPeriodo(Connection connection, java.util.Date da, java.util.Date a)
-			throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Edizione> cercaPerPeriodo(Connection connection, Date da, Date a) throws DAOException {
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+			ps = connection.prepareStatement(
+					"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE data_inizio BETWEEN ? and ?");
+			ps.setDate(1, da);
+			ps.setDate(2, a);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+				listaEdizioni.add(ed);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
+
 	}
 
 	/*
@@ -179,10 +227,59 @@ public class DAOEdizione {
 	 * all'id della categoria. Se non vi sono edizioni per quella categoria o la
 	 * categoria non esiste viene ritornata una lista vuota
 	 */
-	public List<Edizione> cercaPerCategoria(Connection connection, long idCaregoria, boolean future)
+	public List<Edizione> cercaPerCategoria(Connection connection, long idCategoria, boolean future)
 			throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+
+			if (future == true) {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE id_categoria = ? AND data_inizio>=CURRENT_DATE()");
+				ps.setLong(1, idCategoria);
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+				}
+			} else {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE id_categoria = ?");
+				ps.setLong(1, idCategoria);
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
+
 	}
 
 	/*
@@ -192,8 +289,54 @@ public class DAOEdizione {
 	 * edizioni. Se non vi sono edizioni viene ritornata una lista vuota
 	 */
 	public List<Edizione> cercaTutte(Connection connection, boolean future) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+
+			if (future == true) {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE data_inizio>=CURRENT_DATE()");
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+				}
+			} else {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id");
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
 	}
 
 	/*
@@ -204,9 +347,57 @@ public class DAOEdizione {
 	 * base all'id dell'utente. Se non vi sono edizioni per quell'id viene ritornata
 	 * una lista vuota
 	 */
-	public List<Edizione> cercaPerIdUtente(long idUtente, boolean future) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Edizione> cercaPerIdUtente(Connection connection, long idUtente, boolean future) throws DAOException {
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+
+			if (future == true) {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id JOIN iscritto ON iscritto.id_utente=utente.id where utente.id=? and data_inizio>=CURRENT_DATE()");
+				ps.setLong(1, idUtente);
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+				}
+			} else {
+				ps = connection.prepareStatement(
+						"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id JOIN iscritto ON iscritto.id_utente=utente.id where utente.id=?");
+				ps.setLong(1, idUtente);
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+					Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+							rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+					ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+							rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+					listaEdizioni.add(ed);
+
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
 	}
 
 	/*
@@ -215,8 +406,36 @@ public class DAOEdizione {
 	 * non vi sono edizioni per quella categoria o la categoria non esiste viene
 	 * ritornata una lista vuota
 	 */
-	public List<Edizione> cercaPerIdCategoria(Connection connection, long idCaregoria) throws DAOException {
-		return null;
+	public List<Edizione> cercaPerIdCategoria(Connection connection, long idCategoria) throws DAOException {
+
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		Edizione ed = null;
+		PreparedStatement ps;
+
+		try {
+			ps = connection.prepareStatement(
+					"SELECT e.id as id_edizione, e.data_inizio, e.aula, e.docente, e.durata, e.terminata, c.codice, c.titolo, c.descrizione as descrizione_corso, c.costo, c.max_partecipanti, cc.descrizione as descrizione_categoria FROM edizione AS e JOIN corso AS c ON e.id_corso = c.id JOIN categoria AS cc ON c.id_categoria = cc.id WHERE id_categoria = ?");
+			ps.setLong(1, idCategoria);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
+				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
+						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
+				ed = new Edizione(rs.getLong("id"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+
+				listaEdizioni.add(ed);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException("Errore ricerca");
+		}
+		return listaEdizioni;
 	}
 
 	private DAOEdizione() {
