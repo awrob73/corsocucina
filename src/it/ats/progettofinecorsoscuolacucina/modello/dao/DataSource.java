@@ -39,14 +39,12 @@ public class DataSource {
 		Connection connection;
 		try {
 			connection = dbDriver.connect(url, dbProperties);
-			if(connection == null) {
-				instance.getConnection();
-			}
-			connection.setAutoCommit(false);
+			if(connection ==null) instance.getConnection(); //questo garantisce che l'oggetto conn sia uno ed uno solo quindi un'unica connessione
+			connection.setAutoCommit(false); //voglio fare le connessioni a mano 
+			return connection;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
-		return connection;
 	}
 
 	public void close(Connection connection) throws DAOException {
