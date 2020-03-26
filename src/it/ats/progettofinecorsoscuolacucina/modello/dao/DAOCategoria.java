@@ -19,11 +19,11 @@ public class DAOCategoria {
 	public void inserisci(Connection connection, String descrizione) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-				Categoria c = new Categoria();
-				connection.prepareStatement("insert into categoria values(?,?)");
-				preparedStatement.setLong(1, c.getId());
-				preparedStatement.setString(2, descrizione);
-				preparedStatement.executeUpdate();
+			Categoria c = new Categoria();
+			connection.prepareStatement("insert into categoria values(?,?)");
+			preparedStatement.setLong(1, c.getId());
+			preparedStatement.setString(2, descrizione);
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Errore registrazione");
@@ -37,10 +37,10 @@ public class DAOCategoria {
 	public void modifica(Connection connection, Categoria c) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-				connection.prepareStatement("update categoria set categoria = ? where id = ?");
-				preparedStatement.setLong(2, c.getId());
-				preparedStatement.setString(1, c.getDescrizione());
-				preparedStatement.executeUpdate();
+			connection.prepareStatement("update categoria set categoria = ? where id = ?");
+			preparedStatement.setLong(2, c.getId());
+			preparedStatement.setString(1, c.getDescrizione());
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Errore registrazione");
