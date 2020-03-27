@@ -5,25 +5,41 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Modifica Dati Utente</title>
+<link rel="stylesheet" type="text/css" href="FormGrafica.css">
+<div class="ModificaUtenteDiv">
 </head>
 <body>
-<%Utente u = (Utente)request.getAttribute("user"); %>
 
-<form action="ServletModificaUtente" method="post">
+<%Utente u = (Utente)request.getAttribute("utente");  %> 
+<strong> <%=u.getUsername()%> </strong> ecco i tuoi dati, puoi modificarli. <p>
+
+<form action="modificaFinale" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
-<input type='text' name='nome' value=<%=u.getNome()%>>
-<input type='text' name='cognome' value=<%=u.getCognome()%>>
-<input type='text' name='password' value=<%=u.getPassword()%>>
-<input type='number' name='giorno' values=<%=u.getDataNascita().getDay()%>>
-<input type='number' name='mese' value=<%=u.getDataNascita().getMonth()%>>
-<input type='number' name='anno' value=<%=u.getDataNascita().getYear()%>>
-<input type='text' name='email' value=<%=u.getEmail()%>>
-<input type='text' name='telefono' value=<%=u.getTelefono()%>>
-
-<input type='submit' value='modifica!'>
+		<strong> Username </strong>
+		<input type="text" name="username" value = <%=u.getUsername()%> > <br>
+		<strong> Password </strong>
+		<input type="text" name="password" value=<%=u.getPassword() %>>  <br>
+        <strong> Nome </strong>
+		<input type="text" name="nome" value=<%=u.getNome() %>>  <br>
+		<strong> Cognome </strong>
+		<input type="text" name="cognome" value= <%=u.getCognome() %> >  <br>		
+		<strong> Data di nascita </strong> <br>
+		<strong> Giorno </strong> 
+		<input type="number" name="giorno" value=<%=u.getDataNascita().getDay() %>  >  <br>
+		<strong> Mese </strong> 
+		<input type="number" name="mese" value=<%=u.getDataNascita().getMonth() %> >  <br>
+		<strong> Anno </strong>  
+		<input type="number" name="anno" value=<%=u.getDataNascita().getYear() %> >  <br>	
+		<strong> Email </strong>
+	    <input type="text" name="email" value=<%=u.getEmail() %>>  <br>
+	    <strong> Telefono </strong>
+	    <input type="text" name="telefono" value=<%=u.getTelefono() %>>  <br>
+	    
+		<input type="submit" value="modifica">
 
 </form>
 
+</div>
 </body>
 </html>

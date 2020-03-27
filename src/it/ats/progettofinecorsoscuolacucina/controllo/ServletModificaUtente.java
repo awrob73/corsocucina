@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.eccezioni.ServiceException;
 
+@WebServlet("/modificaFinale")
 public class ServletModificaUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +33,7 @@ public class ServletModificaUtente extends HttpServlet {
 
 		try {
 			String convId = request.getParameter("id");
-			long idUtente = Long.parseLong(convId);
+			Long idUtente = Long.parseLong(convId);
 			String newUsername = request.getParameter("username");
 			String newPass = request.getParameter("password");
 			String newNome = request.getParameter("nome");
@@ -42,7 +44,7 @@ public class ServletModificaUtente extends HttpServlet {
 			LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
 			Date newData = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 			String convTel = request.getParameter("telefono");
-			long telefono = Long.parseLong(convTel);
+			Long telefono = Long.parseLong(convTel);
 			String newEmail = request.getParameter("email");
 
 			Utente u = su.leggiUtente(idUtente);
@@ -71,7 +73,7 @@ public class ServletModificaUtente extends HttpServlet {
 				su.modificaEmail(u, newEmail);
 			}
 
-			if (telefono != 0 && telefono != u.getTelefono()) {
+			if (telefono != null && telefono != u.getTelefono()) {
 				su.modificaTelefono(u, telefono);
 			}
 

@@ -25,10 +25,10 @@ Dati utente: <br>
 
 <p>
 
-<form action="%%%%%%" method="post">
+<form action="ServletModificaIntermedia" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
 
-<input class="datiAllievoSubmit"type='submit' value='modifica allievo'>
+<input class="datiAllievoSubmit"type='submit' value='modifica dati'>
 </form>
 
 <form action="cancella" method="post">
