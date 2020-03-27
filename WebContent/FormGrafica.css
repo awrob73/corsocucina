@@ -1,5 +1,6 @@
 charset "ISO-8859-1";
 
+ 
 div.registrazione-utente-Div {
 	
   width:100%;
@@ -12,7 +13,6 @@ div.registrazione-utente-Div {
   margin-left: 0px;
   border: 5px double #800000;
 }
-
 
 input[type=text] {
   
@@ -75,7 +75,7 @@ input[type=submit]:hover {
   width:1400px;
   height:800px;
   border-radius: 20px;
-  background-image: url("img/cannavacciuolo6.1.jpg");
+  background-image: url("img/cannavacciuolo3_2.jpg");
   background-size: 100%;
   padding: 20px;
   margin-left:10px;

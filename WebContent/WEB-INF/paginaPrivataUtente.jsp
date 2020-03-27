@@ -3,17 +3,26 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+
+<style>
+
+</style>
+
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="FormGrafica.css">
 </head>
 <body>
 <%Utente u = (Utente)request.getAttribute("user"); %>
+ 
+<div class="paginaPrivataUtenteDiv">
 
-<div class="paginaUtenteDiv">
-
-<h2>Benvenuto</h2>
-Utente registrato: <strong> <%= u.getNome() %> <%= u.getCognome() %> </strong><br>
+<div class="paginaPrivataUtenteDivBenvenuto">
+<h1 id="paginaPrivataUtenteh1">Benvenuto</h1>
+<h2 id="paginaPrivataUtenteh2"> <%= u.getNome() %> <%= u.getCognome() %> </h2><br>
+</div>
 
 <form action="visualizzaDati" method="get">
 <input type="hidden" name="username" value=<%=u.getUsername()%>>
@@ -32,7 +41,7 @@ Utente registrato: <strong> <%= u.getNome() %> <%= u.getCognome() %> </strong><b
 <p>
 
 <form action="logout" method="get">
-<input type='submit' value='Log out'>
+<input type='submit' value='Logout'>
 </form>
 
 

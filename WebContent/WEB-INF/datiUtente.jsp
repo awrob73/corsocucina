@@ -6,12 +6,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="FormGrafica.css">
 </head>
 <body>
 
 <% Utente u = (Utente) request.getAttribute("utente"); %>
+<div class="datiUtenteDiv">
 
-Dati utente: <br>
+
+<div class="datiUtenteUtenteTrovato">
+
+<h1 style=" margin-bottom: -25px" > Utente trovato</h1> <br>
+
+<img src="img/fotoutentevuoto.png" width="100px" height="100px" >
 
 <p> 
 
@@ -24,18 +31,21 @@ Dati utente: <br>
 <%= u.getTelefono() %> <br>
 
 <p>
-
-<form action="ServletModificaIntermedia" method="post">
+</div>
+<div class="datiUtenteFunctions">
+Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> </span>  o <span style="color:#800000"> <strong>eliminare </strong> </span> il tuo account
+<form class="datiUtenteActions" action="ServletModificaIntermedia" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
 
-<input class="datiAllievoSubmit"type='submit' value='modifica dati'>
+<input class="datiUtenteSubmit"type='submit' value='modifica dati'>
 </form>
 
-<form action="cancella" method="post">
+<form class="datiUtenteActions" action="cancella" method="post">
 <input type='hidden' name='username' value=<%=u.getUsername()%>>
-<input class="datiAllievoSubmit"type='submit' value='Elimina account'>
+<input class="datiUtenteSubmit"type='submit' value='Elimina account'>
 </form>
-
+</div>
+</div>
 
 </body>
 </html>
