@@ -3,6 +3,7 @@ package it.ats.progettofinecorsoscuolacucina.modello.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
@@ -156,6 +157,46 @@ public class ServiceUtente {
 			instance = new ServiceUtente();
 		}
 		return instance;
+	}
+
+	public Utente leggiUtente(long idUtente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void modificaUsername(Utente u, String newUsername) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaPassword(Utente u, String newPass) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaNome(Utente u, String newNome) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaCognome(Utente u, String newCognome) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaData(Utente u, Date newData) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaEmail(Utente u, String newEmail) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modificaTelefono(Utente u, long telefono) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

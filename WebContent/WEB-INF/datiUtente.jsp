@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="modifica">
+<form action="modifica" method="post">
 
 </form>
 
