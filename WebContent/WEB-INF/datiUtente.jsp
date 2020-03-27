@@ -27,10 +27,11 @@ Dati utente: <br>
 
 <form action="modifica">
 <input type='hidden' name='username' value=<%=u.getUsername()%>>
+
 <input class="datiAllievoSubmit"type='submit' value='modifica allievo'>
 </form>
 
-<form action="cancella">
+<form action="cancella" method="post">
 <input type='hidden' name='username' value=<%=u.getUsername()%>>
 <input class="datiAllievoSubmit"type='submit' value='Elimina account'>
 </form>

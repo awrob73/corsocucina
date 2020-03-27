@@ -32,25 +32,11 @@ public class ServiceUtente {
 	 * Registrazione nel sistema di un nuovo utente. Se l'utente è già presente si
 	 * solleva una eccezione
 	 */
-	public void registrazioneUtente(Utente u) throws ServiceException {
+	public void registrazioneUtente(Utente u) throws Exception {
 		Connection connection = null;
-		try {
 			connection = DataSource.getInstance().getConnection();
 			daoU.inserisci(connection, u);
-		} catch (DAOException e) {
-			e.printStackTrace();
-			throw new ServiceException(e.getMessage());
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new ServiceException(e.getMessage());
-				}
-			}
-		}
-
+			connection.commit();
 	}
 
 	/*
@@ -161,9 +147,13 @@ public class ServiceUtente {
 		return u;
 	}
 
-	public Utente leggiUtente(long idUtente) {
-		// TODO Auto-generated method stub
-		return null;
+	public Utente leggiUtente(long idUtente) throws Exception {
+		Connection connection = null;
+		 
+		connection = DataSource.getInstance().getConnection();
+		Utente u = daoU.cercaPerId(connection, idUtente);
+		connection.commit();
+		return u;
 	}
 
 	public void modificaUsername(Utente u, String newUsername) {

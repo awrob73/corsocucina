@@ -19,7 +19,11 @@ public class ServletRegistrazioneUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ServiceUtente utenteServiceImpl;
-
+	
+	public ServletRegistrazioneUtente() {
+		super();
+		this.utenteServiceImpl = ServiceUtente.getInstance();
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -45,19 +49,16 @@ public class ServletRegistrazioneUtente extends HttpServlet {
 		Utente u = new Utente(username, password, nome, cognome, d, email, telefono, adm);
 		try {
 			utenteServiceImpl.registrazioneUtente(u);
-		} catch (ServiceException e) {
+			request.setAttribute("user", u);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/paginaPrivataUtente.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
-		request.setAttribute("user", u);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/paginaPrivataUtente.jsp");
-		requestDispatcher.forward(request, response);
 	}
 
-	public ServletRegistrazioneUtente() {
-		super();
-		this.utenteServiceImpl = ServiceUtente.getInstance();
-	}
+
 
 }
