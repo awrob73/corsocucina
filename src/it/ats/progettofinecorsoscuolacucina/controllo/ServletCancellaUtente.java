@@ -33,16 +33,19 @@ public class ServletCancellaUtente extends HttpServlet {
 			Utente u = utenteServiceImpl.visualizzaDatiUtente(username);
 			long idUtente = u.getId();
 		     utenteServiceImpl.cancellaRegistrazioneUtente(idUtente);
-		     request.setAttribute("idUtente", idUtente);
+		     String m = "L'utente " + u.getUsername() + " è stato cancellato";
+		     request.setAttribute("messaggio", m);
 		
+		     getServletContext().
+				getRequestDispatcher("/WEB-INF/indexMessage.jsp").
+				forward(request, response);
+		     
 		  } catch (Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e.getMessage());
 		}
 		
-		getServletContext().
-		getRequestDispatcher("/WEB-INF/cancellaDatiUtente.jsp").
-		forward(request, response);
+		
 
 	}
 	
