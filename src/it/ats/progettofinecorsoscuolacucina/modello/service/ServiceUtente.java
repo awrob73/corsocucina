@@ -152,11 +152,13 @@ public class ServiceUtente {
 		connection.commit();
 	}
 
-	public static ServiceUtente getInstance() {
-		if (instance == null) {
-			instance = new ServiceUtente();
-		}
-		return instance;
+	public Utente visualizzaDatiUtente(String username) throws Exception {
+		Connection connection = null;
+		 
+		connection = DataSource.getInstance().getConnection();
+		Utente u = daoU.cercaPerUsername(connection, username);
+		connection.commit();
+		return u;
 	}
 
 	public Utente leggiUtente(long idUtente) {
@@ -197,6 +199,13 @@ public class ServiceUtente {
 	public void modificaTelefono(Utente u, long telefono) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static ServiceUtente getInstance() {
+		if (instance == null) {
+			instance = new ServiceUtente();
+		}
+		return instance;
 	}
 
 }
