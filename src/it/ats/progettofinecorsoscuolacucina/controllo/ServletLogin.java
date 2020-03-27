@@ -40,7 +40,7 @@ public class ServletLogin extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			Utente u = su.checkCredenziali(username, password);
-			if (u != null) {
+			if (u.getNome() != null) {
 				HttpSession oldSession = request.getSession(false);
 				if (oldSession != null) {
 					oldSession.invalidate();
@@ -54,7 +54,10 @@ public class ServletLogin extends HttpServlet {
 				requestDispatcher.forward(request, response);
 
 			} else {
-				response.sendRedirect("index.jsp");
+				String m = "username e password errati... riprova";
+				request.setAttribute("messaggio", m);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/indexMessage.jsp");
+				requestDispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.getMessage();

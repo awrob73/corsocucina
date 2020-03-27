@@ -32,8 +32,7 @@ Utente registrato: <strong> <%= u.getNome() %> <%= u.getCognome() %> </strong><b
 <p>
 
 <form action="logout" method="get">
-<input type='hidden' name='username' value=<%=u.getUsername()%>>
-<input type='submit' value='Logout'>
+<input type='submit' value='Log out'>
 </form>
 
 
