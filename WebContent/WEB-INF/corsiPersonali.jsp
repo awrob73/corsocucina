@@ -16,7 +16,7 @@
 Caro <%=u.getNome() %>, ecco i tuoi corsi:
 <p>
 <%for(Corso c:lista){
-	out.println("<li>"+c+"<li>");
+	out.println("<li>"+c.getTitolo()+"<li>");
 }%>
 
 

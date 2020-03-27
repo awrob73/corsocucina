@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.ats.progettofinecorsoscuolacucina.modello.Categoria;
 import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
 
@@ -182,10 +183,12 @@ public class DAOCorso {
 
 			while (rs.next()) {
 				Corso corso = new Corso();
+				Categoria cat = new Categoria();
 				corso.setId(rs.getLong("id"));
 				corso.setCodice(rs.getInt("codice"));
 				corso.setTitolo(rs.getString("titolo"));
-				corso.getCategoria().setId(rs.getLong("id_categoria"));
+				cat.setId(rs.getLong("id_categoria"));
+				corso.setCategoria(cat);
 				corso.setMaxPartecipanti(rs.getInt("max_partecipanti"));
 				corso.setCosto(rs.getDouble("costo"));
      			corso.setDescrizione(rs.getString("descrizione"));

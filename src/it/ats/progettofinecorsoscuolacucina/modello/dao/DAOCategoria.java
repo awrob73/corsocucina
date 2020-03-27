@@ -22,7 +22,7 @@ public class DAOCategoria {
 		PreparedStatement preparedStatement = null;
 		try {
 			Categoria c = new Categoria();
-			connection.prepareStatement("insert into categoria values(?,?)");
+			preparedStatement=connection.prepareStatement("insert into categoria values(?,?)");
 			preparedStatement.setLong(1, c.getId());
 			preparedStatement.setString(2, descrizione);
 			preparedStatement.executeUpdate();
@@ -39,7 +39,7 @@ public class DAOCategoria {
 	public void modifica(Connection connection, Categoria c) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-			connection.prepareStatement("update categoria set categoria = ? where id = ?");
+			preparedStatement =connection.prepareStatement("update categoria set categoria = ? where id = ?");
 			preparedStatement.setLong(2, c.getId());
 			preparedStatement.setString(1, c.getDescrizione());
 			preparedStatement.executeUpdate();
@@ -57,7 +57,7 @@ public class DAOCategoria {
 	public void cancella(Connection connection, long idCategoria) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-			connection.prepareStatement("delete from categoria where id = ?");
+			preparedStatement = connection.prepareStatement("delete from categoria where id = ?");
 			preparedStatement.setLong(1, idCategoria);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -74,11 +74,11 @@ public class DAOCategoria {
 		PreparedStatement preparedStatement = null;
 		Categoria c = new Categoria();
 		try {
-			connection.prepareStatement("select * from categoria where id = ?");
+			preparedStatement = connection.prepareStatement("select * from categoria where id=?");
 			preparedStatement.setLong(1, idCategoria);
 			ResultSet rs = preparedStatement.executeQuery();
 			if(rs.next()) {
-				c.setId(rs.getInt("id"));
+				c.setId(rs.getLong("id"));
 				c.setDescrizione(rs.getString("descrizione"));
 			}
 		} catch (SQLException e) {
@@ -96,7 +96,7 @@ public class DAOCategoria {
 		PreparedStatement preparedStatement = null;
 		List<Categoria> list = new ArrayList<Categoria>();
 		try {
-			connection.prepareStatement("select * from categoria");
+			preparedStatement =connection.prepareStatement("select * from categoria");
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				Categoria c = new Categoria();

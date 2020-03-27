@@ -114,7 +114,7 @@ public class ServiceCorso {
 		return listaCorsi;
 	}
 	
-	public List<Corso> visualizzaCorsiUtente(long idUtente) throws ServiceException {
+	public List<Corso> visualizzaCorsiUtente(long idUtente) throws ServiceException, Exception {
 		Connection connection = null;
 		List<Corso> listaCorsi = new ArrayList<>();
 		try {
@@ -123,6 +123,7 @@ public class ServiceCorso {
 			for(Corso c:listaCorsi) {
 				c.setCategoria(daoCat.cercaPerId(connection, c.getCategoria().getId()));
 			}
+			connection.commit();
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
