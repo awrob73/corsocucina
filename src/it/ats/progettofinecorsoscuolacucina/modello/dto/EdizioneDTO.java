@@ -18,6 +18,10 @@ public class EdizioneDTO {
 		this.utentiIscritti = utenti;
 	}
 
+	public EdizioneDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public List<Utente> getUtentiIscritti() {
 		return utentiIscritti;
 	}

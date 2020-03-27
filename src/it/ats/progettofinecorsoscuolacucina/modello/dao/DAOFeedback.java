@@ -10,6 +10,7 @@ import java.util.List;
 import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.Edizione;
 import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
+import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.dao.eccezioni.DAOException;
 
 public class DAOFeedback {
@@ -137,11 +138,15 @@ public class DAOFeedback {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Feedback feedback = new Feedback();
+				Utente u = new Utente();
+				Edizione ed = new Edizione();
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
-				feedback.getUtente().setId(rs.getLong("id_utente"));
-				feedback.getEdizione().setId(rs.getLong("id_edizione"));
+				u.setId(rs.getLong("id_utente"));
+				feedback.setUtente(u);
+				ed.setId(rs.getLong("id_edizione"));
+				feedback.setEdizione(ed);
 				list.add(feedback);
 			}
 			return list;
