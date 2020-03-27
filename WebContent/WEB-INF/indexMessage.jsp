@@ -7,6 +7,55 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<style>
+
+body {
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+
+  margin: auto;
+  background-image: url("img/corsi-di-cucina1.jpg");
+  background-color: #cccccc;
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  margin: auto;
+  text-align: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+
+input[type=submit] {
+  background-color: #800000;
+  color: white;
+}
+
+a{
+background-color: #800000;
+color: black;
+}
+</style>
+</head>
+<body>
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 style="font-size:40px">Benvenuto al corso di cucina</h1>
+
+   <div class="indexDiv"></div>
+
 <%String m =(String) request.getAttribute("messaggio"); %>
 <%=m %>
 	<form action="login" method="post">
@@ -31,7 +80,7 @@
 		</table>
 		<br>
 	</form>
-	<form action="%%%%%%%">
+	<form action="%%%%%%%" method ="">
 	Visualizza i nostri corsi:
 	<input type="submit" value="VAI">
 	</form>
