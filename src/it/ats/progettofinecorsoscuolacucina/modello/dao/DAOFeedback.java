@@ -86,11 +86,15 @@ public class DAOFeedback {
 			preparedStatement.setLong(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
+				Utente u = new Utente();
+				Edizione ed = new Edizione();
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
-				feedback.getUtente().setId(rs.getLong("id_utente"));
-				feedback.getEdizione().setId(rs.getLong("id_edizione"));
+				u.setId(rs.getLong("id_utente"));
+				feedback.setUtente(u);
+				ed.setId(rs.getLong("id_edizione"));
+				feedback.setEdizione(ed);;
 			}
 			return feedback;
 		} catch (SQLException e) {
@@ -112,11 +116,15 @@ public class DAOFeedback {
 			preparedStatement.setLong(2, idEdizione);
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
+				Utente u = new Utente();
+				Edizione ed = new Edizione();
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
-				feedback.getUtente().setId(rs.getLong("id_utente"));
-				feedback.getEdizione().setId(rs.getLong("id_edizione"));
+				u.setId(rs.getLong("id_utente"));
+				feedback.setUtente(u);
+				ed.setId(rs.getLong("id_edizione"));
+				feedback.setEdizione(ed);;
 			}
 			return feedback;
 		} catch (SQLException e) {
@@ -169,11 +177,15 @@ public class DAOFeedback {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Feedback feedback = new Feedback();
+				Utente u = new Utente();
+				Edizione ed = new Edizione();
 				feedback.setId(rs.getInt("id"));
 				feedback.setDescrizione(rs.getString("descrizione"));
 				feedback.setVoto(rs.getInt("voto"));
-				feedback.getUtente().setId(rs.getLong("id_utente"));
-				feedback.getEdizione().setId(rs.getLong("id_edizione"));
+				u.setId(rs.getLong("id_utente"));
+				feedback.setUtente(u);
+				ed.setId(rs.getLong("id_edizione"));
+				feedback.setEdizione(ed);
 				list.add(feedback);
 			}
 			return list;
