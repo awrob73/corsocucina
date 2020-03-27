@@ -18,7 +18,7 @@ Lista di tutti i Corsi: <br>
 
 <ul>
 <% for(int i = 0; i< lista.size(); i++) {
-out.println("<li> <a href=%%%?="+ lista.get(i).getId() +">"+ lista.get(i).getTitolo() + "</a> </li>");
+out.println("<li> <a href=infoCorso?id="+ lista.get(i).getId() +">"+ lista.get(i).getTitolo() + "</a> </li>");
 }
 %>
 <p>
