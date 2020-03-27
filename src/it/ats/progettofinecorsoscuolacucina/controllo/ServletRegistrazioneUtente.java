@@ -51,10 +51,7 @@ public class ServletRegistrazioneUtente extends HttpServlet {
 		try {
 			utenteServiceImpl.registrazioneUtente(u);
 			//apertura sessione
-			HttpSession oldSession = request.getSession(false);
-			if (oldSession != null) {
-				oldSession.invalidate();
-			}
+			
 			HttpSession currentSession = request.getSession(true);
 			currentSession.setAttribute("user", u);
 			currentSession.setMaxInactiveInterval(10 * 60);

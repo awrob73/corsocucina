@@ -41,10 +41,7 @@ public class ServletLogin extends HttpServlet {
 			String password = request.getParameter("password");
 			Utente u = su.checkCredenziali(username, password);
 			if (u.getNome() != null) {
-				HttpSession oldSession = request.getSession(false);
-				if (oldSession != null) {
-					oldSession.invalidate();
-				}
+				
 				HttpSession currentSession = request.getSession();
 				currentSession.setAttribute("user", u);
 				currentSession.setMaxInactiveInterval(10 * 60);

@@ -37,21 +37,32 @@ public class ServletCorsiPersonali extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
-		List<EdizioneDTO> listEdizione = new ArrayList<EdizioneDTO>();
-		List<Corso> listCorso = new ArrayList<Corso>();
+		List<Edizione> listaEdizioni = new ArrayList<Edizione>();
+		List<Edizione> listaEdizioniAttive = new ArrayList<Edizione>();
+		List<Edizione> listaEdizioniConcluse = new ArrayList<Edizione>();
+		
 		try {
 			Utente u = su.visualizzaDatiUtente(username);
-			listCorso = sc.visualizzaCorsiUtente(u.getId());
-			for(Corso c: listCorso) {
-				for(int i=0; i<se.visualizzaEdizioniPerCorso(c.getId()).size();i++) {
-					listEdizione.add(se.visualizzaEdizioniPerCorso(c.getId()).get(i));
-//					System.out.println(se.visualizzaEdizioniPerCorso(c.getId()).get(i));
+			listaEdizioni = se.visualizzaEdizioniPerUtente(u.getId());
+
+			for(Edizione ed : listaEdizioni) {
+				
+				if(ed.isTerminata()==true) {
+					
+					listaEdizioniConcluse.add(ed);
+					
+					
+				}else {
+					
+					listaEdizioniAttive.add(ed);
+					
 				}
 				
 			}
-			request.setAttribute("listaCorsi", listCorso);
-			request.setAttribute("listaEdizione", listEdizione);
-			request.setAttribute("user", u);
+			request.setAttribute("username", username);
+			request.setAttribute("listaEdizioni", listaEdizioni);
+			request.setAttribute("listaEdizioniAttive", listaEdizioniAttive);
+			request.setAttribute("listaEdizioniConcluse", listaEdizioniConcluse);			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/corsiPersonali.jsp");
 			requestDispatcher.forward(request, response);
 			
@@ -62,6 +73,7 @@ public class ServletCorsiPersonali extends HttpServlet {
 		
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 }

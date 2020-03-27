@@ -395,6 +395,37 @@ public class ServiceEdizione {
 
 		return edDTO;
 	}
+	
+	public List<Edizione> visualizzaEdizioniPerUtente(long idUtente) throws ServiceException, SQLException {
+		Connection connection = null;
+		
+		Edizione ed = null;
+		List<Edizione> listaEdizioniUtente = new ArrayList<>();
+		
+		try {
+			connection = DataSource.getInstance().getConnection();
+			
+			listaEdizioniUtente = daoU.cercaIscrizioniUtente(connection, idUtente);
+			
+			connection.commit();
+						
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new ServiceException(e.getMessage());
+			}
+		}
+
+		return listaEdizioniUtente;
+	}
 
 	public static ServiceEdizione getInstance() {
 		if (instance == null) {
