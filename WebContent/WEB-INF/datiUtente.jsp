@@ -25,8 +25,8 @@ Dati utente: <br>
 
 <p>
 
-<form action="modifica">
-<input type='hidden' name='username' value=<%=u.getUsername()%>>
+<form action="%%%%%%" method="post">
+<input type='hidden' name='id' value=<%=u.getId()%>>
 
 <input class="datiAllievoSubmit"type='submit' value='modifica allievo'>
 </form>

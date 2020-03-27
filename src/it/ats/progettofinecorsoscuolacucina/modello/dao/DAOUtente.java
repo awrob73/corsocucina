@@ -50,14 +50,17 @@ public class DAOUtente {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(
-					"update utente set  password = ?, nome = ?, cognome = ?, data_nascita = ?, email = ?, telefono = ?) where username = ?");
-			preparedStatement.setString(7, u.getUsername());
+					"update utente set  password = ?, nome = ?, cognome = ?, data_nascita = ?, email = ?, telefono = ?, username = ? where id=?");
+			
 			preparedStatement.setString(1, u.getPassword());
 			preparedStatement.setString(2, u.getNome());
 			preparedStatement.setString(3, u.getCognome());
 			preparedStatement.setDate(4, new Date(u.getDataNascita().getTime()));
 			preparedStatement.setString(5, u.getEmail());
 			preparedStatement.setLong(6, u.getTelefono());
+			preparedStatement.setString(7, u.getUsername());
+			preparedStatement.setLong(8, u.getId());
+
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

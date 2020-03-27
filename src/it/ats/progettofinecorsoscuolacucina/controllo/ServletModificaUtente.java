@@ -79,7 +79,7 @@ public class ServletModificaUtente extends HttpServlet {
 			request.setAttribute("utente", u);
 
 			getServletContext().
-			getRequestDispatcher("/WEB-INF/jsp/VisualizzaDatiUtente.jsp").
+			getRequestDispatcher("/WEB-INF/datiUtente.jsp").
 			forward(request, response);
 
 		} catch (Exception e) {

@@ -156,39 +156,172 @@ public class ServiceUtente {
 		return u;
 	}
 
-	public void modificaUsername(Utente u, String newUsername) {
-		// TODO Auto-generated method stub
-		
+	public void modificaUsername(Utente u, String newUsername) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setUsername(newUsername);
+			daoU.modifica(connection, u);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
-	public void modificaPassword(Utente u, String newPass) {
-		// TODO Auto-generated method stub
-		
+	public void modificaPassword(Utente u, String newPass) throws Exception{
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setPassword(newPass);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+
 	}
 
-	public void modificaNome(Utente u, String newNome) {
-		// TODO Auto-generated method stub
-		
+	public void modificaNome(Utente u, String newNome) throws Exception{
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setNome(newNome);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
-	public void modificaCognome(Utente u, String newCognome) {
-		// TODO Auto-generated method stub
-		
+	public void modificaCognome(Utente u, String newCognome) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setCognome(newCognome);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
-	public void modificaData(Utente u, Date newData) {
-		// TODO Auto-generated method stub
-		
+	public void modificaData(Utente u, Date newData) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setDataNascita(newData);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
-	public void modificaEmail(Utente u, String newEmail) {
-		// TODO Auto-generated method stub
-		
+	public void modificaEmail(Utente u, String newEmail) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setEmail(newEmail);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
-	public void modificaTelefono(Utente u, long telefono) {
-		// TODO Auto-generated method stub
-		
+	public void modificaTelefono(Utente u, long telefono) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			u.setTelefono(telefono);
+			daoU.modifica(connection, u);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+
 	}
 	
 	public static ServiceUtente getInstance() {
