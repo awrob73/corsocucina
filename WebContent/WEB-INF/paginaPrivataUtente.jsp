@@ -9,7 +9,7 @@
 </head>
 <body>
 <%Utente u = (Utente)request.getAttribute("user"); %>
- 
+
 <div class="paginaUtenteDiv">
 
 <h2>Benvenuto</h2>

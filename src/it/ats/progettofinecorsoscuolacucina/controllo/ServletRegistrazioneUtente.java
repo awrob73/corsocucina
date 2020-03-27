@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
@@ -49,6 +50,15 @@ public class ServletRegistrazioneUtente extends HttpServlet {
 		Utente u = new Utente(username, password, nome, cognome, d, email, telefono, adm);
 		try {
 			utenteServiceImpl.registrazioneUtente(u);
+			//apertura sessione
+			HttpSession oldSession = request.getSession(false);
+			if (oldSession != null) {
+				oldSession.invalidate();
+			}
+			HttpSession currentSession = request.getSession(true);
+			currentSession.setAttribute("user", u);
+			currentSession.setMaxInactiveInterval(10 * 60);
+			
 			request.setAttribute("user", u);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/paginaPrivataUtente.jsp");
 			requestDispatcher.forward(request, response);

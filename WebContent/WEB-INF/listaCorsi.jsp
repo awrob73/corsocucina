@@ -1,3 +1,4 @@
+<%@page import="it.ats.progettofinecorsoscuolacucina.modello.Utente"%>
 <%@page import="java.util.List"%>
 <%@page import="it.ats.progettofinecorsoscuolacucina.modello.Corso"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
