@@ -171,6 +171,34 @@ public class DAOCorso {
 		}
 	}
 	
+	public List<Corso> corsiUtente(Connection connection, long idUtente) throws DAOException{
+		PreparedStatement preparedStatement = null;
+		List<Corso> list = new ArrayList<Corso>();
+		
+		try {
+			preparedStatement = connection.prepareStatement("select c.* from corso as c inner join edizione as e on e.id_corso=c.id inner join iscritto as i on i.id_edizione= e.id where i.id_utente=?;");
+			preparedStatement.setLong(1, idUtente);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Corso corso = new Corso();
+				corso.setId(rs.getLong("id"));
+				corso.setCodice(rs.getInt("codice"));
+				corso.setTitolo(rs.getString("titolo"));
+				corso.getCategoria().setId(rs.getLong("id_categoria"));
+				corso.setMaxPartecipanti(rs.getInt("max_partecipanti"));
+				corso.setCosto(rs.getDouble("costo"));
+     			corso.setDescrizione(rs.getString("descrizione"));
+     			list.add(corso);
+			}
+			return list;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Utente non ha corsi attivati");
+		}
+	}
+	
 	private DAOCorso() {
 		super();
 	}
