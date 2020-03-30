@@ -51,7 +51,7 @@ public class DAOUtente {
 		try {
 			preparedStatement = connection.prepareStatement(
 					"update utente set  password = ?, nome = ?, cognome = ?, data_nascita = ?, email = ?, telefono = ?, username = ? where id=?");
-			
+
 			preparedStatement.setString(1, u.getPassword());
 			preparedStatement.setString(2, u.getNome());
 			preparedStatement.setString(3, u.getCognome());
@@ -155,7 +155,7 @@ public class DAOUtente {
 			throw new DAOException("Utente non trovato");
 		}
 	}
-	
+
 	public Utente cercaPerUsername(Connection connection, String username) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		Utente u = new Utente();
@@ -232,30 +232,27 @@ public class DAOUtente {
 	public List<Edizione> cercaIscrizioniUtente(Connection connection, long idUtente) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-		preparedStatement = connection.prepareStatement(
-				"select corso.codice,corso.titolo,categoria.descrizione,edizione.data_inizio,edizione.durata,edizione.aula,edizione.docente,edizione.terminata,corso.costo"
-						+ "from iscritto join edizione on edizione.id=iscritto.id_edizione"
-						+ "join corso on edizione.id_corso=corso.id "
-						+ "join categoria on categoria.id=corso.id_categoria" + "where id_utente=?");
+			preparedStatement = connection.prepareStatement(
+					"select corso.codice,corso.titolo,categoria.descrizione,edizione.data_inizio,edizione.durata,edizione.aula,edizione.docente,edizione.terminata,corso.costo from iscritto join edizione on edizione.id=iscritto.id_edizione join corso on edizione.id_corso=corso.id join categoria on categoria.id=corso.id_categoria where id_utente=?");
 
-		preparedStatement.setLong(1, idUtente);
+			preparedStatement.setLong(1, idUtente);
 
-		ResultSet resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-		List<Edizione> lista = new ArrayList<>();
-		
-		while (resultSet.next()) {
+			List<Edizione> lista = new ArrayList<>();
 
-			Categoria categoria = new Categoria(resultSet.getString("categoria.descrizione"));
-			Corso corso = new Corso(resultSet.getInt("codice"), resultSet.getString("titolo"), categoria,
-					resultSet.getDouble("costo"));
+			while (resultSet.next()) {
 
-			Edizione e = new Edizione(corso, resultSet.getDate("data_inizio"), resultSet.getInt("durata"),
-					resultSet.getString("aula"), resultSet.getString("docente"), resultSet.getBoolean("terminata"));
+				Categoria categoria = new Categoria(resultSet.getString("categoria.descrizione"));
+				Corso corso = new Corso(resultSet.getInt("codice"), resultSet.getString("titolo"), categoria,
+						resultSet.getDouble("costo"));
 
-			lista.add(e);
-		}
-		return lista;
+				Edizione e = new Edizione(corso, resultSet.getDate("data_inizio"), resultSet.getInt("durata"),
+						resultSet.getString("aula"), resultSet.getString("docente"), resultSet.getBoolean("terminata"));
+
+				lista.add(e);
+			}
+			return lista;
 
 		} catch (SQLException e) {
 			e.printStackTrace();//
@@ -331,8 +328,8 @@ public class DAOUtente {
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				verificaPassword = rs.getString("password");
-				if(verificaPassword.equals(password)) {
-					verifica =1;
+				if (verificaPassword.equals(password)) {
+					verifica = 1;
 				}
 
 			}
@@ -341,7 +338,7 @@ public class DAOUtente {
 			e.printStackTrace();
 			throw new DAOException("password non corretta");
 		}
-		
+
 	}
 
 	private DAOUtente() {

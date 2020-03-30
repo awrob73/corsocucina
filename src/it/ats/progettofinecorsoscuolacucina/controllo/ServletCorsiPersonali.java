@@ -59,7 +59,7 @@ public class ServletCorsiPersonali extends HttpServlet {
 				}
 				
 			}
-			request.setAttribute("username", username);
+			request.setAttribute("user", u);
 			request.setAttribute("listaEdizioni", listaEdizioni);
 			request.setAttribute("listaEdizioniAttive", listaEdizioniAttive);
 			request.setAttribute("listaEdizioniConcluse", listaEdizioniConcluse);			
@@ -70,9 +70,6 @@ public class ServletCorsiPersonali extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	
 	}
 
