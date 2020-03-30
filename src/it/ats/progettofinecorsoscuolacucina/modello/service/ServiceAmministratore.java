@@ -66,6 +66,26 @@ public class ServiceAmministratore {
 		return list;
 	}
 	
+	public Utente cercaAmministratorePerUsername(String username) throws Exception {
+
+		Connection connection = null;
+		Utente a = new Utente();
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a = daoA.cercaPerUsername(connection, username);
+			connection.commit();
+			return a;
+
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		
+		
+
+	}
+	
 	public Utente cercaAmministratorePerId(long idUtente) throws Exception {
 
 		Connection connection = null;
@@ -90,6 +110,30 @@ public class ServiceAmministratore {
 		}
 		return a;
 
+	}
+	
+	public Utente checkCredenziali(String username, String password) throws Exception {
+		Connection connection = null;
+		Utente u = new Utente();
+		try {
+			connection = DataSource.getInstance().getConnection();
+			
+			int i = daoA.cercaPerCredenziali(connection, username, password);
+			if(i==1) {
+			u = daoA.cercaPerUsername(connection, username);
+			}
+			connection.commit();
+		} catch (DAOException | SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	public static ServiceAmministratore getInstance() {
+		if (instance == null) {
+			instance = new ServiceAmministratore();
+		}
+		return instance;
 	}
 	
 }

@@ -142,6 +142,59 @@ public class DAOAmministratore {
 		}
 		return amministratore;
 	}
+	
+	public Utente cercaPerUsername(Connection connection, String username) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		Utente u = new Utente();
+		try {
+			preparedStatement = connection.prepareStatement("select * from amministratore where username=?");
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+
+				u.setId(rs.getLong("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setNome(rs.getString("nome"));
+				u.setCognome(rs.getString("cognome"));
+				u.setDataNascita(rs.getDate("data_nascita"));
+				u.setEmail(rs.getString("email"));
+				u.setTelefono(rs.getLong("telefono"));
+				u.setAdmin(true);
+
+			}
+			
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Utente non trovato");
+		}
+	}
+	
+	public int cercaPerCredenziali(Connection connection, String username, String password) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		int verifica = 0;
+		String verificaPassword = null;
+		try {
+			preparedStatement = connection.prepareStatement("select * from amministratore where username=?");
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				verificaPassword = rs.getString("password");
+				if (verificaPassword.equals(password)) {
+					verifica = 1;
+				}
+
+			}
+			return verifica;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("password non corretta");
+		}
+
+	}
 
 	private DAOAmministratore() {
 		super();
