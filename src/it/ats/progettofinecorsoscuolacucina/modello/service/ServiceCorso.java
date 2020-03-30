@@ -145,7 +145,8 @@ public class ServiceCorso {
 		Corso co = new Corso();
 		try {
 			connection = DataSource.getInstance().getConnection();
-			daoCo.cercaPerId(connection, idCorso);
+			co = daoCo.cercaPerId(connection, idCorso);
+			co.setCategoria(daoCat.cercaPerId(connection, co.getCategoria().getId()));
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());

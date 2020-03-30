@@ -11,7 +11,7 @@ import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceCorso;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
-
+@WebServlet("/infoCorso")
 public class ServletInfoCorso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,6 @@ public class ServletInfoCorso extends HttpServlet {
 
 		}
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 }

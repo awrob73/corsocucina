@@ -10,16 +10,15 @@ pageEncoding="ISO-8859-1"%>
 <body>
 <% Corso c = (Corso) request.getAttribute("corso"); %>
 
-Dettagli corso: <br>
+Dettagli del corso "<%= c.getTitolo()%>": <br>
 
 <p>
 
-<%= c.getCodice() %> <br>
-<%= c.getTitolo() %> <br>
-<%= c.getCategoria() %> <br>
-<%= c.getMaxPartecipanti() %> <br>
-<%= c.getCosto() %> <br>
-<%= c.getDescrizione() %> <br>
+Codice: <%= c.getCodice() %> <br>
+Categoria: <%= c.getCategoria().getDescrizione() %> <br>
+Numero partecipanti: <%= c.getMaxPartecipanti() %> <br>
+Costo: <%= c.getCosto() %> <br>
+Descrizione: <%= c.getDescrizione() %> <br>
 
 <p>
 </body>
