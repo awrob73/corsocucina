@@ -104,16 +104,18 @@ public class DAOEdizione {
 				Categoria categoria = new Categoria(rs.getString("descrizione_categoria"));
 				Corso corso = new Corso(rs.getInt("codice"), rs.getString("titolo"), categoria,
 						rs.getInt("max_partecipanti"), rs.getDouble("costo"), rs.getString("descrizione_corso"));
-				ed = new Edizione(idEdizione, corso, rs.getDate("data_inizio"), rs.getInt("durata"),
+				ed = new Edizione(rs.getLong("id_edizione"), corso, rs.getDate("data_inizio"), rs.getInt("durata"),
 						rs.getString("aula"), rs.getString("docente"), rs.getBoolean("terminata"));
+				
 
 			}
+			return ed;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new DAOException("Errore ricerca");
 		}
-		return ed;
+		
 	}
 
 	/*

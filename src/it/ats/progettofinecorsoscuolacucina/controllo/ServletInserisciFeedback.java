@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,49 +14,49 @@ import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceEdizione;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
 
 /**
- * Servlet implementation class ServeltDisiscriviUtente
+ * Servlet implementation class ServletInserisciFeedback
  */
-@WebServlet("/disiscriviUtente")
-public class ServeltDisiscriviUtente extends HttpServlet {
+public class ServletInserisciFeedback extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-
-	private ServiceEdizione se;
 	private ServiceUtente su;
+	private ServiceEdizione se;
 
-	public ServeltDisiscriviUtente() {
+	public ServletInserisciFeedback() throws Exception {
 		super();
-		this.se = ServiceEdizione.getInstance();
 		this.su = ServiceUtente.getInstance();
+		this.se = ServiceEdizione.getInstance();
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String conv = request.getParameter("idUtente");
-		Long idUtente = Long.parseLong(conv);
+		
+		String convU = request.getParameter("idUtente");
+		Long idUtente = Long.parseLong(convU);
+		
 		String convE = request.getParameter("idEdizione");
-		Long idEdizione = Long.parseLong(convE);
+		Long idEdizione = Long.parseLong(convE); 
 		
 		try {
 			
-			se.cancellaIscrizioneUtente(idEdizione, idUtente);
-			Utente u = su.leggiUtente(idUtente);
+			Utente u = su.leggiUtente(idUtente); 
 			Edizione ed = se.leggiEdizione(idEdizione);
+			
 			
 			request.setAttribute("user", u);
 			request.setAttribute("edizione", ed);
-			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/disiscrizione.jsp");
+				
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/inserisciFeedback.jsp");
 			requestDispatcher.forward(request, response);
 			
-		} catch (Exception e) {
+		} 
+		catch (Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 	}
 
-
+}

@@ -426,6 +426,16 @@ public class ServiceEdizione {
 
 		return listaEdizioniUtente;
 	}
+	
+	public Edizione leggiEdizione(long idEdizione) throws Exception {
+		Connection connection = null;
+		 
+		connection = DataSource.getInstance().getConnection();
+		Edizione ed = daoE.cercaPerId(connection, idEdizione);
+		connection.commit();
+		return ed;
+	}
+
 
 	public static ServiceEdizione getInstance() {
 		if (instance == null) {

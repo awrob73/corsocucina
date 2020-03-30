@@ -233,7 +233,7 @@ public class DAOUtente {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(
-					"select corso.codice,corso.titolo,categoria.descrizione,edizione.data_inizio,edizione.durata,edizione.aula,edizione.docente,edizione.terminata,corso.costo from iscritto join edizione on edizione.id=iscritto.id_edizione join corso on edizione.id_corso=corso.id join categoria on categoria.id=corso.id_categoria where id_utente=?");
+					"select corso.codice,corso.titolo,categoria.descrizione,edizione.data_inizio,edizione.durata,edizione.aula,edizione.id as idE,edizione.docente,edizione.terminata,corso.costo from iscritto join edizione on edizione.id=iscritto.id_edizione join corso on edizione.id_corso=corso.id join categoria on categoria.id=corso.id_categoria where id_utente=?");
 
 			preparedStatement.setLong(1, idUtente);
 
@@ -249,6 +249,7 @@ public class DAOUtente {
 
 				Edizione e = new Edizione(corso, resultSet.getDate("data_inizio"), resultSet.getInt("durata"),
 						resultSet.getString("aula"), resultSet.getString("docente"), resultSet.getBoolean("terminata"));
+				e.setId(resultSet.getLong("idE"));
 
 				lista.add(e);
 			}

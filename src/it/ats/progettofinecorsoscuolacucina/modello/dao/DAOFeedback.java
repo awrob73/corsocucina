@@ -124,7 +124,7 @@ public class DAOFeedback {
 				u.setId(rs.getLong("id_utente"));
 				feedback.setUtente(u);
 				ed.setId(rs.getLong("id_edizione"));
-				feedback.setEdizione(ed);;
+				feedback.setEdizione(ed);
 			}
 			return feedback;
 		} catch (SQLException e) {
