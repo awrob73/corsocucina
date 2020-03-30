@@ -51,8 +51,13 @@ Numero partecipanti: <%= c.getMaxPartecipanti() %> <br>
 Costo: <%= c.getCosto() %> <br>
 Descrizione: <%= c.getDescrizione() %> <br>
 <p>
-	<% out.println("<form><input type = 'button' value = 'vedi recensioni' onClick='getFeedbacks()'>");
-	out.println("<input id = 'h1' type = 'hidden' name ='idCorso' value="+ c.getId() +"></form> <br>");%>
+	<form><input type = 'button' value = 'vedi recensioni' onClick='getFeedbacks()'>
+	<input id = 'h1' type = 'hidden' name ='idCorso' value=<%=c.getId() %>></form> <br>
+	
+	<form action="ServletEdizioniCorso" method="post">
+<input type="hidden" name="id" value=<%=c.getId() %>>
+<input type="submit" value="Visualizza edizioni">
+</form>
 
 <li><div id='demo'></div></li>
  	 
