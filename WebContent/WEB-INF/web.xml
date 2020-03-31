@@ -118,7 +118,7 @@
     <servlet-name>ServletModificaFeedback</servlet-name>
     <url-pattern>/ServletModificaFeedback</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ServletCancellaFeedback</display-name>
     <servlet-name>ServletCancellaFeedback</servlet-name>
@@ -127,5 +127,25 @@
   <servlet-mapping>
     <servlet-name>ServletCancellaFeedback</servlet-name>
     <url-pattern>/ServletCancellaFeedback</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletModificaIntermediaA</display-name>
+    <servlet-name>ServletModificaIntermediaA</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletModificaIntermediaA</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModificaIntermediaA</servlet-name>
+    <url-pattern>/ServletModificaIntermediaA</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletModificaAmministratore</display-name>
+    <servlet-name>ServletModificaAmministratore</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletModificaAmministratore</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModificaAmministratore</servlet-name>
+    <url-pattern>/ServletModificaAmministratore</url-pattern>
   </servlet-mapping>
 </web-app>

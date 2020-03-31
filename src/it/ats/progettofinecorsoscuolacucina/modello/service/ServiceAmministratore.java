@@ -2,6 +2,7 @@ package it.ats.progettofinecorsoscuolacucina.modello.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
@@ -21,11 +22,12 @@ public class ServiceAmministratore {
 		this.daoA = DAOAmministratore.getInstance();
 	}
 
-	public void registrazioneAmministratore(Utente a) throws ServiceException {
+	public void registrazioneAmministratore(Utente a) throws ServiceException, Exception {
 		Connection connection = null;
 		try {
 			connection = DataSource.getInstance().getConnection();
 			daoA.inserisci(connection, a);
+			connection.commit();
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
@@ -92,7 +94,8 @@ public class ServiceAmministratore {
 		Utente a = new Utente();
 		try {
 			connection = DataSource.getInstance().getConnection();
-			daoA.cercaPerId(connection, idUtente);
+			a = daoA.cercaPerId(connection, idUtente);
+			connection.commit();
 
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -127,6 +130,178 @@ public class ServiceAmministratore {
 			e.printStackTrace();
 		}
 		return u;
+	}
+	
+	public void modificaUsername(Utente a, String newUsername) throws Exception{
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setUsername(newUsername);
+			daoA.modifica(connection, a);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+		
+	}
+
+	public void modificaPassword(Utente a, String newPass) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setPassword(newPass);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+
+		
+	}
+
+	public void modificaNome(Utente a, String newNome) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setNome(newNome);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+		
+	}
+
+	public void modificaCognome(Utente a, String newCognome) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setCognome(newCognome);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+		
+	}
+
+	public void modificaData(Utente a, Date newData) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setDataNascita(newData);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+		
+	}
+
+	public void modificaEmail(Utente a, String newEmail) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setEmail(newEmail);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+
+	public void modificaTelefono(Utente a, Long telefono) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			a.setTelefono(telefono);
+			daoA.modifica(connection, a);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}	
 	}
 	
 	public static ServiceAmministratore getInstance() {

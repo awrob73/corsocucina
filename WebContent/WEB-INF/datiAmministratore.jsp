@@ -34,9 +34,8 @@
 </div>
 <div class="datiUtenteFunctions">
 Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> </span>  o <span style="color:#800000"> <strong>eliminare </strong> </span> il tuo account
-<form class="datiUtenteActions" action="ServletModificaIntermediaAmministratore" method="post">
+<form class="datiUtenteActions" action="ServletModificaIntermediaA" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
-
 <input class="datiUtenteSubmit"type='submit' value='modifica dati'>
 </form>
 
