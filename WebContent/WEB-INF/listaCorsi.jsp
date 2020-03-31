@@ -22,9 +22,11 @@
 	<ul>
 		<%
 			for (int i = 0; i < lista.size(); i++) {
-				out.println("<li> <form action='infoCorso' method='post'>" + " <input type='hidden' name='id' value="
-						+ lista.get(i).getId() + "> " + " <input type='submit' value=" + lista.get(i).getTitolo()
-						+ "></form> </li>");
+				out.println("<li> <form action='infoCorso' method='post'>"); 
+						out.println(" <input type='hidden' name='id' value="+ lista.get(i).getId() + "> ");
+						out.println(lista.get(i).getTitolo());
+						out.println(" <input type='submit' value='vai'></form> <br></li>");
+						
 			}
 		%>
 
