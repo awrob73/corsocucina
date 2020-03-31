@@ -48,7 +48,7 @@ public class DAOFeedback {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(
-					"update feedback set  descrizione = ?, voto = ?, id_edizione = ?, id_utente = ? ) where id = ?");
+					"update feedback set  descrizione = ?, voto = ?, id_edizione = ?, id_utente = ?  where id = ?");
 			preparedStatement.setString(1, feedback.getDescrizione());
 			preparedStatement.setInt(2, feedback.getVoto());
 			preparedStatement.setLong(3, feedback.getEdizione().getId());

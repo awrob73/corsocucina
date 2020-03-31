@@ -58,7 +58,7 @@
     <servlet-name>ServletConfermaFeedback</servlet-name>
     <url-pattern>/ServletConfermaFeedback</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ServletVisualizzaDatiAmministratore</display-name>
     <servlet-name>ServletVisualizzaDatiAmministratore</servlet-name>
@@ -67,5 +67,65 @@
   <servlet-mapping>
     <servlet-name>ServletVisualizzaDatiAmministratore</servlet-name>
     <url-pattern>/ServletVisualizzaDatiAmministratore</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletListaFeedback</display-name>
+    <servlet-name>ServletListaFeedback</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletListaFeedback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletListaFeedback</servlet-name>
+    <url-pattern>/ServletListaFeedback</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletEdizioniCorso</display-name>
+    <servlet-name>ServletEdizioniCorso</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletEdizioniCorso</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletEdizioniCorso</servlet-name>
+    <url-pattern>/ServletEdizioniCorso</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletDettagliEdizione</display-name>
+    <servlet-name>ServletDettagliEdizione</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletDettagliEdizione</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletDettagliEdizione</servlet-name>
+    <url-pattern>/ServletDettagliEdizione</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletModificaIntermediaFeedback</display-name>
+    <servlet-name>ServletModificaIntermediaFeedback</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletModificaIntermediaFeedback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModificaIntermediaFeedback</servlet-name>
+    <url-pattern>/ServletModificaIntermediaFeedback</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletModificaFeedback</display-name>
+    <servlet-name>ServletModificaFeedback</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletModificaFeedback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletModificaFeedback</servlet-name>
+    <url-pattern>/ServletModificaFeedback</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ServletCancellaFeedback</display-name>
+    <servlet-name>ServletCancellaFeedback</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletCancellaFeedback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCancellaFeedback</servlet-name>
+    <url-pattern>/ServletCancellaFeedback</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -7,18 +7,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.ats.progettofinecorsoscuolacucina.modello.Edizione;
 import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
+import it.ats.progettofinecorsoscuolacucina.modello.Utente;
+import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceEdizione;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceFeedback;
+import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
 
 
 /**
  * Servlet implementation class ServletCancellaFeedback
  */
-@WebServlet("/cancellaFeedback")
+
 public class ServletCancellaFeedback extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ServiceFeedback feedbackServiceImpl;
+	private ServiceUtente su;
+	private ServiceEdizione se;
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,21 +38,23 @@ public class ServletCancellaFeedback extends HttpServlet {
 		try {
 			
 			
-			String convIdUtente = request.getParameter("id_utente");
-			Long idUtente = Long.parseLong(convIdUtente);
+			String convIdUtente = request.getParameter("idUtente");
+			long idUtente = Long.parseLong(convIdUtente);
+			Utente u = su.leggiUtente(idUtente);
 	
-			String convIdEdizione = request.getParameter("id_edizione");
-			Long idEdizione = Long.parseLong(convIdEdizione);
+			String convIdEdizione = request.getParameter("idEdizione");
+			long idEdizione = Long.parseLong(convIdEdizione);
+			Edizione ed = se.leggiEdizione(idEdizione);
 			
 			Feedback f = feedbackServiceImpl.cercaFeedback(idUtente, idEdizione);
 			
 			long idFeedback = f.getId();
 		     feedbackServiceImpl.cancellaFeedback(idFeedback);
-		     String m = "il feedback è stato cancellato";
-		     request.setAttribute("messaggio", m);
+		     request.setAttribute("user", u);
+		     request.setAttribute("edizione", ed);
 		
 		     getServletContext().
-				getRequestDispatcher("/WEB-INF/****.jsp").
+				getRequestDispatcher("/WEB-INF/cancellaFeedback.jsp").
 				forward(request, response);
 		     
 		  } catch (Exception e) {
@@ -59,6 +67,8 @@ public class ServletCancellaFeedback extends HttpServlet {
 	public ServletCancellaFeedback() {
 		super();
 		this.feedbackServiceImpl = ServiceFeedback.getInstance();
+		this.su = ServiceUtente.getInstance();
+		this.se = ServiceEdizione.getInstance();
 	}
 	
 }
