@@ -22,9 +22,8 @@ public class DAOCategoria {
 		PreparedStatement preparedStatement = null;
 		try {
 			Categoria c = new Categoria();
-			preparedStatement=connection.prepareStatement("insert into categoria values(?,?)");
-			preparedStatement.setLong(1, c.getId());
-			preparedStatement.setString(2, descrizione);
+			preparedStatement=connection.prepareStatement("insert into categoria(descrizione) values(?)");
+			preparedStatement.setString(1, descrizione);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

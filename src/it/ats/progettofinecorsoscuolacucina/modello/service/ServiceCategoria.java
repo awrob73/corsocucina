@@ -23,12 +23,13 @@ public class ServiceCategoria {
 		this.daoC = DAOCategoria.getInstance();
 	}
 
-	public void aggiungiCategoria(String descrizione) throws ServiceException {
+	public void aggiungiCategoria(String descrizione) throws ServiceException, Exception {
 
 		Connection connection = null;
 		try {
 			connection = DataSource.getInstance().getConnection();
 			daoC.inserisci(connection, descrizione);
+			connection.commit();
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,6 +149,12 @@ public class ServiceCategoria {
 		}
 		return listCategoria;
 
+	}
+	public static ServiceCategoria getInstance() {
+		if (instance == null) {
+			instance = new ServiceCategoria();
+		}
+		return instance;
 	}
 }
 

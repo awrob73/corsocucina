@@ -34,7 +34,8 @@
 <input type="submit" value="Inserisci nuovo corso">
 </form>
 <p>
-<form action="ServletNuovaCategoria" method="get">
+<form action="ServletInserisciCategoria" method="post">
+<input tye='text' name='descrizione'> Digita la nuova categoria<br>
 <input type="hidden" name="username" value=<% a.getUsername();%>>
 <input type="submit" value="Crea una nuova categoria">
 </form>

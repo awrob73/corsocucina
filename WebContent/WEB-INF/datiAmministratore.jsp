@@ -39,6 +39,11 @@ Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> <
 <input class="datiUtenteSubmit"type='submit' value='modifica dati'>
 </form>
 
+<form action="login" method="post">
+<input type='hidden' name='username' value=<%=u.getUsername() %>>
+<input type='hidden'  name='password' value=<%=u.getPassword() %>>
+<input type='submit' value='Vai alla Pagina Privata Amministratore'></form>
+
 
 </div>
 </div>
