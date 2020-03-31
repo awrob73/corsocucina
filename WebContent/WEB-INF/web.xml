@@ -148,4 +148,24 @@
     <servlet-name>ServletModificaAmministratore</servlet-name>
     <url-pattern>/ServletModificaAmministratore</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletInserisciCategoria</display-name>
+    <servlet-name>ServletInserisciCategoria</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletInserisciCategoria</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletInserisciCategoria</servlet-name>
+    <url-pattern>/ServletInserisciCategoria</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletListaCategoria</display-name>
+    <servlet-name>ServletListaCategoria</servlet-name>
+    <servlet-class>it.ats.progettofinecorsoscuolacucina.controllo.ServletListaCategoria</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletListaCategoria</servlet-name>
+    <url-pattern>/ServletListaCategoria</url-pattern>
+  </servlet-mapping>
 </web-app>

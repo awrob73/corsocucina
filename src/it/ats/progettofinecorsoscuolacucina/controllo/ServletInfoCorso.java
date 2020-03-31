@@ -1,6 +1,9 @@
 package it.ats.progettofinecorsoscuolacucina.controllo;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Corso;
+import it.ats.progettofinecorsoscuolacucina.modello.Feedback;
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceCorso;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;

@@ -1,3 +1,4 @@
+<%@page import="it.ats.progettofinecorsoscuolacucina.modello.Utente"%>
 <%@page import="it.ats.progettofinecorsoscuolacucina.modello.dto.EdizioneDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -9,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%Utente u =(Utente) session.getAttribute("user"); %>
 
 <%
 	List<EdizioneDTO>  lista = (List<EdizioneDTO>) request.getAttribute("edizione");
@@ -30,6 +32,10 @@
 		
 	</ul>
 		<p>
+		<form action="login" method="post">
+<input type='hidden' name='username' value=<%=u.getUsername() %>>
+<input type='hidden'  name='password' value=<%=u.getPassword() %>>
+<input type='submit' value='Vai alla Pagina Privata Utente'></form>
 
 </body>
 </html>

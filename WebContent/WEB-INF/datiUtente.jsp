@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<% Utente u = (Utente) request.getAttribute("utente"); %>
+<% Utente u = (Utente) session.getAttribute("user"); %>
 <div class="datiUtenteDiv">
 
 
@@ -44,6 +44,12 @@ Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> <
 <input type='hidden' name='username' value=<%=u.getUsername()%>>
 <input class="datiUtenteSubmit"type='submit' value='Elimina account'>
 </form>
+
+		<form action="login" method="post">
+<input type='hidden' name='username' value=<%=u.getUsername() %>>
+<input type='hidden'  name='password' value=<%=u.getPassword() %>>
+<input type='submit' value='Vai alla Pagina Privata Utente'></form>
+</body>
 </div>
 </div>
 

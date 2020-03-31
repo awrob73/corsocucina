@@ -60,7 +60,7 @@ public class ServletListaFeedback extends HttpServlet {
 				}
 
 			}
-
+			
 			PrintWriter pw = response.getWriter();
 			for (Feedback f : listaFeedbacks) {
 				pw.println("Voto: " + f.getVoto() + "\n");

@@ -1,3 +1,4 @@
+<%@page import="it.ats.progettofinecorsoscuolacucina.modello.Feedback"%>
 <%@page import="it.ats.progettofinecorsoscuolacucina.modello.dto.EdizioneDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="it.ats.progettofinecorsoscuolacucina.modello.Utente"%>
@@ -18,6 +19,7 @@ pageEncoding="ISO-8859-1"%>
  		
  		var idCorso = document.getElementById('h1').value;
  		var xhttp = new XMLHttpRequest();
+ 		
  		
  		//gestione della risposta
  		xhttp.onreadystatechange = function(){
@@ -60,6 +62,13 @@ Descrizione: <%= c.getDescrizione() %> <br>
 <input type="hidden" name="id" value=<%=c.getId() %>>
 <input type="submit" value="Visualizza edizioni">
 </form>
+
+	<form action="login" method="post">
+		<input type='hidden' name='username' value=<%=u.getUsername()%>>
+		<input type='hidden' name='password' value=<%=u.getPassword()%>>
+		<input type='submit' value='Torna alla Pagina Privata Utente'>
+	</form>
+
 
 <li id='demo'></li>
  	 
