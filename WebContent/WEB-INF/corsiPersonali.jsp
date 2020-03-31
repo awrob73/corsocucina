@@ -10,6 +10,45 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Corsi Personali</title>
+<style>
+
+body {
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+
+  margin: auto;
+  background-image: url("img/cutlery_decoration_background_eat_gastronomy_knife_fork_spoon-695364.jpg");
+  background-color: #cccccc;
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  margin: auto;
+  text-align: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+
+input[type=submit] {
+  background-color: #800000;
+  color: white;
+}
+
+a{
+background-color: #800000;
+color: black;
+}
+</style>
 </head>
 <body>
 	<%
@@ -27,7 +66,7 @@
 		Utente u = (Utente) request.getAttribute("user");
 	%>
 
-	<%=u.getNome()%>, ecco i tuoi corsi attivi:
+	<h1> <%=u.getNome()%>, ecco i tuoi corsi attivi: </h1>
 	<br>
 
 	<%
@@ -85,7 +124,7 @@
 					out.println("<form action ='ServletModificaIntermediaFeedback' method='post' >"
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
 							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
-							+ "<input type='submit' value='modifica Feedback'> </form>");
+							+ "<input type='submit' value='modifica Feedback'> </form> <p>");
 
 					out.println("<form action ='ServletCancellaFeedback' method='post' >"
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
