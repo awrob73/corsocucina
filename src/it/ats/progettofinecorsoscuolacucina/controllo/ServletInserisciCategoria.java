@@ -35,8 +35,8 @@ public class ServletInserisciCategoria extends HttpServlet {
 		String descrizione = request.getParameter("descrizione");
 		
 		try {
-
-			sc.aggiungiCategoria(descrizione);
+			if(!descrizione.trim().isEmpty()) {
+			sc.aggiungiCategoria(descrizione);}
 			Utente a = sa.cercaAmministratorePerUsername(username);
 			
 			request.setAttribute("descrizione", descrizione);
