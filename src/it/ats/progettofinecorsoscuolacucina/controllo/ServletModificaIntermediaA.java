@@ -45,7 +45,6 @@ public class ServletModificaIntermediaA extends HttpServlet {
 			Long idAmministratore = Long.parseLong(conv);
 
 			Utente a = sa.cercaAmministratorePerId(idAmministratore);
-			System.out.println(a);
 
 			request.setAttribute("amministratore", a);
 

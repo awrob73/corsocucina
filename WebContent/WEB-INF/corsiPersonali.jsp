@@ -63,7 +63,7 @@
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
 							+ "<input type='hidden' name='idEdizione' value=" + edCNoFeedback.getId() + ">"
 							+ "<input type='submit' value='inserisci Feedback'> </form>");
-					
+
 					out.println("<li>");
 				}
 			}
@@ -81,24 +81,28 @@
 
 					out.println("<li>Nome del corso: " + edCSiFeedback.getCorso().getTitolo() + " Data inizio corso: "
 							+ edCSiFeedback.getDataInizio());
-					
+
 					out.println("<form action ='ServletModificaIntermediaFeedback' method='post' >"
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
 							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
 							+ "<input type='submit' value='modifica Feedback'> </form>");
-					
-					
+
 					out.println("<form action ='ServletCancellaFeedback' method='post' >"
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
 							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
 							+ "<input type='submit' value='cancella Feedback'> </form>");
-					
+
 					out.println("<li>");
-					
-					
+
 				}
 			}
 		%>
-	    
+	
+	<form action="login" method="post">
+		<input type='hidden' name='username' value=<%=u.getUsername()%>>
+		<input type='hidden' name='password' value=<%=u.getPassword()%>>
+		<input type='submit' value='Vai alla Pagina Privata Utente'>
+	</form>
+
 </body>
 </html>

@@ -31,6 +31,8 @@ pageEncoding="ISO-8859-1"%>
  		xhttp.open("POST", "ServletListaFeedback?idCorso=" + idCorso, true);
  		xhttp.send();
  		
+ 		//alert
+ 		
  	};
  	
 </script>
@@ -59,7 +61,7 @@ Descrizione: <%= c.getDescrizione() %> <br>
 <input type="submit" value="Visualizza edizioni">
 </form>
 
-<li><div id='demo'></div></li>
+<li id='demo'></li>
  	 
 </body>
 </html>
