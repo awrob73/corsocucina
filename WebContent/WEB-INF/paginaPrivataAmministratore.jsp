@@ -39,6 +39,12 @@
 <input type="hidden" name="username" value=<% a.getUsername();%>>
 <input type="submit" value="Crea una nuova categoria">
 </form>
+
+<form action="ServletListaCategoria" method="post">
+<input type="hidden" name="username" value=<% a.getUsername();%>>
+<input type="submit" value="Vedi le categorie presenti">
+</form>
+
 <p>
 <form action="ServletListaCorsi" method="get">
 <input type="hidden" name="username" value=<%=a.getUsername()%>>

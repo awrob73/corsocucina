@@ -19,6 +19,11 @@ La categoria <%= descrizione %> è stata correttamente inserita. <p>
 <input type='hidden' name='username' value=<%=a.getUsername() %>>
 <input type='hidden'  name='password' value=<%=a.getPassword() %>>
 <input type='submit' value='Vai alla Pagina Privata Amministratore'></form>
+<p>
+<form action="ServletListaCategoria" method="post">
+<input type="hidden" name="username" value=<% a.getUsername();%>>
+<input type="submit" value="Vedi le categorie presenti">
+</form>
 
 </body>
 </html>
