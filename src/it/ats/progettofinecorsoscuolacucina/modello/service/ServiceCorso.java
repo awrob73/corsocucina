@@ -31,11 +31,12 @@ public class ServiceCorso {
 		this.daoCat = DAOCategoria.getInstance();
 	}
 
-	public void inserisciCorso(Corso corso) throws ServiceException {
+	public void inserisciCorso(Corso corso) throws Exception {
 		Connection connection = null;
 		try {
 			connection = DataSource.getInstance().getConnection();
 			daoCo.inserisci(connection, corso);
+			connection.commit();
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());

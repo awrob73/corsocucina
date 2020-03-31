@@ -98,29 +98,20 @@ public class ServiceCategoria {
 
 	}
 
-	public Categoria cercaCategoriaId(long idCategoria) throws ServiceException {
+	public Categoria cercaCategoriaId(long idCategoria) throws Exception {
 
 		Connection connection = null;
 		Categoria c = new Categoria();
 		try {
 			connection = DataSource.getInstance().getConnection();
-			daoC.cercaPerId(connection, idCategoria);
-
+			c = daoC.cercaPerId(connection, idCategoria);
+			connection.commit();
+			return c;
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
-		}
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ServiceException(e.getMessage());
-			}
-		}
-		return c;
+		}	
 
 	}
 

@@ -10,6 +10,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Corsi Personali</title>
+</head>
+<body>
+<body>
+
 <style>
 
 body {
@@ -51,6 +55,10 @@ color: black;
 </style>
 </head>
 <body>
+
+<div class="hero-image">
+  <div class="hero-text">
+  <div class="indexDiv"></div>
 	<%
 		List<Edizione> listaEdizioniAttive = (List<Edizione>) request.getAttribute("listaEdizioniAttive");
 	%>
@@ -102,7 +110,7 @@ color: black;
 							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
 							+ "<input type='hidden' name='idEdizione' value=" + edCNoFeedback.getId() + ">"
 							+ "<input type='submit' value='inserisci Feedback'> </form>");
-
+					
 					out.println("<li>");
 				}
 			}
@@ -119,29 +127,10 @@ color: black;
 				for (Edizione edCSiFeedback : listaEdizioniConcluseSiFeedback) {
 
 					out.println("<li>Nome del corso: " + edCSiFeedback.getCorso().getTitolo() + " Data inizio corso: "
-							+ edCSiFeedback.getDataInizio());
-
-					out.println("<form action ='ServletModificaIntermediaFeedback' method='post' >"
-							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
-							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
-							+ "<input type='submit' value='modifica Feedback'> </form> <p>");
-
-					out.println("<form action ='ServletCancellaFeedback' method='post' >"
-							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
-							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
-							+ "<input type='submit' value='cancella Feedback'> </form>");
-
-					out.println("<li>");
-
+							+ edCSiFeedback.getDataInizio() + "<li>");
 				}
 			}
 		%>
-	
-	<form action="login" method="post">
-		<input type='hidden' name='username' value=<%=u.getUsername()%>>
-		<input type='hidden' name='password' value=<%=u.getPassword()%>>
-		<input type='submit' value='Vai alla Pagina Privata Utente'>
-	</form>
-
+	    
 </body>
 </html>

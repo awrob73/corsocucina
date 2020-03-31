@@ -29,7 +29,7 @@
 <input type="submit" value='Visualizza dati'>
 </form>
 <p>
-<form action="ServletNuovoCorso" method="get">
+<form action="ServletInserisciCorso" method="post">
 <input type="hidden" name="username" value=<% a.getUsername();%>>
 <input type="submit" value="Inserisci nuovo corso">
 </form>
@@ -46,8 +46,9 @@
 </form>
 
 <p>
-<form action="ServletListaCorsi" method="get">
+<form action="ServletListaCorso" method="post">
 <input type="hidden" name="username" value=<%=a.getUsername()%>>
+<%-- <input type="hidden" name="password" value=<%=a.getPassword()%>> --%>
 <input type="submit" value="Visualizza la lista dei corsi">
 </form>
 <p>
