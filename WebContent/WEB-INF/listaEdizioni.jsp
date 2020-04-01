@@ -24,11 +24,18 @@
 	<ul>
 		<%
 			for (int i = 0; i < lista.size(); i++) {
-				out.println("<li> <form action='ServletDettagliEdizione' method='post'>" + " <input type='hidden' name='id' value="
-						+ lista.get(i).getEdizione().getId() + "> " + " <input type='submit' value=" + lista.get(i).getEdizione().getDataInizio()
+				out.println("<li> <form action='ServletDettagliEdizione' method='post'>"
+						+ " <input type='hidden' name='id' value=" + lista.get(i).getEdizione().getId() + "> "
+                		+ " <input type='hidden' name='username' value=" + u.getUsername() + "> "	
+						+ " <input type='submit' value=" + lista.get(i).getEdizione().getDataInizio()
 						+ "></form> </li>");
 			}
 		%>
+		<p>
+		<form action="login" method="post">
+<input type='hidden' name='username' value=<%=u.getUsername() %>>
+<input type='hidden'  name='password' value=<%=u.getPassword() %>>
+<input type='submit' value='Vai alla Pagina Privata Utente'></form>
 		
 	</ul>
 		<p>

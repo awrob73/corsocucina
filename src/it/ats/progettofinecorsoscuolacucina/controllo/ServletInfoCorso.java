@@ -20,20 +20,24 @@ public class ServletInfoCorso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ServiceCorso sc;
+	private ServiceUtente su;
 
 	public ServletInfoCorso() throws Exception {
 		super();
 		this.sc = ServiceCorso.getInstance();
+		this.su = ServiceUtente.getInstance();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String username = request.getParameter("username");
 
 		try {
-
+			Utente u = su.visualizzaDatiUtente(username);
 			String idCorso = request.getParameter("idCorso");
 			long id = Long.parseLong(idCorso);
 			Corso c = sc.visualizzaCorso(id);
+			request.setAttribute("user", u);
 
 			request.setAttribute("corso", c);
 			getServletContext().getRequestDispatcher("/WEB-INF/dettagliCorso.jsp").forward(request, response);

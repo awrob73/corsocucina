@@ -131,6 +131,11 @@ color: black;
 				}
 			}
 		%>
+		<p>
+		<form action="login" method="post">
+<input type='hidden' name='username' value=<%=u.getUsername() %>>
+<input type='hidden'  name='password' value=<%=u.getPassword() %>>
+<input type='submit' value='Vai alla Pagina Privata Utente'></form>
 	    
 </body>
 </html>
