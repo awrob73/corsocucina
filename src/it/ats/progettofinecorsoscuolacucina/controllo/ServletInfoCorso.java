@@ -31,7 +31,7 @@ public class ServletInfoCorso extends HttpServlet {
 
 		try {
 
-			String idCorso = request.getParameter("id");
+			String idCorso = request.getParameter("idCorso");
 			long id = Long.parseLong(idCorso);
 			Corso c = sc.visualizzaCorso(id);
 

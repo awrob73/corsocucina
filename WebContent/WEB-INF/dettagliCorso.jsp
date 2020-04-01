@@ -59,7 +59,9 @@ Descrizione: <%= c.getDescrizione() %> <br>
 	<input id = 'h1' type = 'hidden' name ='idCorso' value=<%=c.getId() %>></form> <br>
 	
 	<form action="ServletEdizioniCorso" method="post">
-<input type="hidden" name="id" value=<%=c.getId() %>>
+<input type="hidden" name="idCorso" value=<%=c.getId() %>>
+<input type="hidden" name="username" value=<%=u.getUsername() %>>
+<input type="hidden" name="password" value=<%=u.getPassword() %>>
 <input type="submit" value="Visualizza edizioni">
 </form>
 

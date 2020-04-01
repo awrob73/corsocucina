@@ -13,7 +13,7 @@
 <%Utente u =(Utente) session.getAttribute("user"); %>
 
 <%
-	List<EdizioneDTO>  lista = (List<EdizioneDTO>) request.getAttribute("edizione");
+	List<EdizioneDTO>  lista = (List<EdizioneDTO>) request.getAttribute("edizioni");
 	%>
 
 

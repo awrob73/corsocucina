@@ -23,9 +23,9 @@
 	<ul>
 		<%
 			for (int i = 0; i < lista.size(); i++) {
-				out.println("<li> <form action='infoCorso' method='post'>"); 
-						out.println(" <input type='hidden' name='id' value="+ lista.get(i).getId() + "> ");
-						out.println(lista.get(i).getTitolo());
+					out.println("<li> <form action='infoCorso' method='post'>"); 
+					out.println(" <input type='hidden' name='idCorso' value="+ lista.get(i).getId() + "> ");
+					out.println(lista.get(i).getTitolo());
 						out.println(" <input type='submit' value='vai'></form> <br></li>");
 						
 			}
