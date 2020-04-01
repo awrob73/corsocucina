@@ -25,12 +25,15 @@ public class DAOEdizione {
 		try {
 			ps = connection.prepareStatement(
 					"INSERT INTO edizione(id_corso,data_inizio,durata,aula,docente,terminata) VALUES (?,?,?,?,?,?)");
-			ps.setLong(1, ed.getId());
+			ps.setLong(1, ed.getCorso().getId());
 			ps.setDate(2, new java.sql.Date(ed.getDataInizio().getTime()));
 			ps.setInt(3, ed.getDurata());
 			ps.setString(4, ed.getAula());
 			ps.setString(5, ed.getDocente());
-			ps.setBoolean(6, false);
+			if(ed.isTerminata()==true) {
+			ps.setInt(6, 1);
+			}else {
+			ps.setInt(6, 0);}
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,6 +61,19 @@ public class DAOEdizione {
 			throw new DAOException("Impossibile cancellare");
 		}
 
+	}
+	
+	public void cancellaIscrizione(Connection connection, long idEdizione) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("delete from iscritto where id_edizione=? ;");
+			preparedStatement.setLong(1, idEdizione);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
 	}
 
 	/*

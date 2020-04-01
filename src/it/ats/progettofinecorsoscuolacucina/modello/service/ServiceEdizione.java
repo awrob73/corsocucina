@@ -134,11 +134,38 @@ public class ServiceEdizione {
 
 	}
 
-	/*
-	 * Iscrive un utente ad una edizione un utente. Si può iscrivere solo se ci sono
-	 * ancora posti disponibili considerato che ogni corso ha un numero massimo di
-	 * partecipanti
-	 */
+
+public void cancellaEdizione2(long idEdizione) throws ServiceException, SQLException {
+		
+		Connection connection = null;
+		
+		try {
+			connection = DataSource.getInstance().getConnection();
+			
+			daoE.cancellaIscrizione(connection, idEdizione);
+			daoE.cancella(connection, idEdizione);
+			connection.commit();
+			
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		if (connection != null) {
+			try {
+				
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new ServiceException(e.getMessage());
+			}
+		}
+
+	}
+	
+	
+	
 	public void iscriviUtente(long idEdizione, long idUtente) throws ServiceException, SQLException {
 		
 		Connection connection = null;

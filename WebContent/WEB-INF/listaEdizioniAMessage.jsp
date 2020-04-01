@@ -16,6 +16,8 @@
 	List<EdizioneDTO>  lista = (List<EdizioneDTO>) request.getAttribute("edizioni");
 	%>
 
+   <%String m =(String) request.getAttribute("messaggio"); %>
+	<%=m %> <p>
 	 
 
 	Lista di tutte le Edizioni:
@@ -34,7 +36,7 @@
 		%>
 		
 	<form action='ServletInserisciEdizione' method='post'> 
-	<input type='hidden' name="idCorso" value= <%=corso.getId() %>>
+	<input type='hidden' name='idCorso' value= <% corso.getId(); %>>
 	Inserisci la data di inizio: <br>
 	Giorno [GG] <input type='number' name='giorno'> Mese [MM] <input type='number' name='mese'> Anno [AAAA] <input type='number' name='anno'> <br>
 	Inserisci la durata del corso <input type='number' name='durata'> <br>
@@ -42,7 +44,6 @@
 	Inserisci il nome del docente del corso <input type='text' name='docente'> <br>
 	
 	<input type='submit' value='inserisci nuova edizione'></form>
-
 
 
 </body>
