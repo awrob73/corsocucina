@@ -44,7 +44,7 @@ public class ServletCancellaEdizione extends HttpServlet {
 			long idCorso = Long.parseLong(convIdC);
 			
 			Edizione ed = se.leggiEdizione(idEdizione);
-			se.cancellaEdizione(idEdizione);
+			se.cancellaEdizione2(idEdizione);
 			
 			Corso corso = sc.visualizzaCorso(idCorso);
 			List<EdizioneDTO> listEdizioni = se.visualizzaEdizioniPerCorso(idCorso);

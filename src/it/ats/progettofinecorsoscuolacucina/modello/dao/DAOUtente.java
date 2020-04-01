@@ -213,8 +213,7 @@ public class DAOUtente {
 	public void cancellaIscrizioneUtente(Connection connection, long idEdizione, long idUtente) throws DAOException {
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = connection
-					.prepareStatement("delete from iscritto where (id_edizione=? and id_utente=?);");
+			preparedStatement = connection.prepareStatement("delete from iscritto where (id_edizione=? and id_utente=?);");
 			preparedStatement.setLong(1, idEdizione);
 			preparedStatement.setLong(2, idUtente);
 			preparedStatement.executeUpdate();
@@ -222,6 +221,31 @@ public class DAOUtente {
 		} catch (SQLException e) {
 			e.printStackTrace();//
 			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
+	}
+	
+	public void cancellaIscrizione(Connection connection, long idUtente) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("delete from iscritto where id_utente=? ;");
+			preparedStatement.setLong(1, idUtente);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();//
+			throw new DAOException("Errore cancellazione iscrizione corso");
+		}
+	}
+
+	public void cancellaFeedback(Connection connection, long idUtente) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("delete from feedback where id_utente = ?");
+			preparedStatement.setLong(1, idUtente);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Impossibile cancellare");
 		}
 	}
 

@@ -141,7 +141,7 @@ public void cancellaEdizione2(long idEdizione) throws ServiceException, SQLExcep
 		
 		try {
 			connection = DataSource.getInstance().getConnection();
-			
+			daoE.cancellaFeedback(connection, idEdizione);
 			daoE.cancellaIscrizione(connection, idEdizione);
 			daoE.cancella(connection, idEdizione);
 			connection.commit();

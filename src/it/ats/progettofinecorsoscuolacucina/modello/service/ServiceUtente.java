@@ -70,6 +70,8 @@ public class ServiceUtente {
 	public void cancellaRegistrazioneUtente(long idUtente) throws Exception {
 		Connection connection = null;
 		connection = DataSource.getInstance().getConnection();
+		daoU.cancellaFeedback(connection, idUtente);
+		daoU.cancellaIscrizione(connection, idUtente);
 		daoU.cancella(connection, idUtente);
 		connection.commit();
 
@@ -137,6 +139,7 @@ public class ServiceUtente {
 		daoF.cancella(connection, idFeedback);
 		connection.commit();
 	}
+	
 
 	public Utente visualizzaDatiUtente(String username) throws Exception {
 		Connection connection = null;
@@ -323,6 +326,8 @@ public class ServiceUtente {
 		}
 
 	}
+	
+
 	
 	public static ServiceUtente getInstance() {
 		if (instance == null) {

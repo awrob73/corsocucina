@@ -75,6 +75,18 @@ public class DAOEdizione {
 			throw new DAOException("Errore cancellazione iscrizione corso");
 		}
 	}
+	
+	public void cancellaFeedback(Connection connection, long idEdizione) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("delete from feedback where id_edizione = ?");
+			preparedStatement.setLong(1, idEdizione);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Impossibile cancellare");
+		}
+	}
 
 	/*
 	 * Modifica di tutti i dati di una edizione presente nel calendario dei corsi.
