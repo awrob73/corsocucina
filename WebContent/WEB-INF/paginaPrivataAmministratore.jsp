@@ -29,7 +29,7 @@
 <input type="submit" value='Visualizza dati'>
 </form>
 <p>
-<form action="ServletInserisciCorso" method="post">
+<form action="ServletFormInserisciCorso" method="post">
 <input type="hidden" name="username" value=<% a.getUsername();%>>
 <input type="submit" value="Inserisci nuovo corso">
 </form>
