@@ -49,7 +49,6 @@ public class ServletInserisciCorso extends HttpServlet {
 			Categoria cat = scat.cercaCategoriaId(idCategoria);
 			
 			Corso c = new Corso(codice, titolo, cat, maxPartecipanti, costo, descrizione);
-			System.out.println(c);
 	
 			sc.inserisciCorso(c);
 			

@@ -20,7 +20,7 @@
 
 <% for(Corso co: listCorsi){
 	out.println("<li> <form action='ServletEdizioniCorso' method='post'>"); 
-	out.println("<li>"+co.getTitolo()+"</li>");
+	out.println(co.getTitolo());
 	out.println(" <input type='hidden' name='username' value="+ a.getUsername() + "> ");
 	out.println(" <input type='hidden' name='password' value="+ a.getPassword() + "> ");
 	out.println(" <input type='hidden' name='idCorso' value="+ co.getId() + "> ");
