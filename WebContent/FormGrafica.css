@@ -1,6 +1,8 @@
-charset "ISO-8859-1";
+@charset "ISO-8859-1";
+/* sjh */
 
- 
+
+
 div.registrazione-utente-Div {
 	
   width:100%;
@@ -13,6 +15,7 @@ div.registrazione-utente-Div {
   margin-left: 0px;
   border: 5px double #800000;
 }
+
 
 input[type=text] {
   
@@ -107,6 +110,7 @@ input[type=submit]:hover {
 
 }
 
+
 div.datiUtenteDiv {
 	
   width:1400px;
@@ -117,7 +121,6 @@ div.datiUtenteDiv {
   padding: 20px;
   margin-left:10px;
   margin-right: 10px;
-  
   background-image: url("img/fotoutentevuoto.png");
   background-size: 5%;
 }
@@ -178,8 +181,171 @@ div.datiUtenteFunctions {
 }
 
 .listaCorsi {
+  background-image: url("img/listaCorsi1.2.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+/*   border: 5px double #800000; */
+/*   border-radius: 20px; */
+  padding: 20px;
+  text-align: center;
+  font-size: 50px;
+  color: red;
+  vertical-align: middle;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.listaCorsiDiv {
+  width:1400px;
+  height:740px;
+/*   border: 5px double #800000; */
+/*   border-radius: 20px; */
+  padding: 20px;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: red;
+  vertical-align: middle;
+  margin: auto;
+  
+	}
+
+ul {
+	font-size: 30px;
+	line-height:15px;
+	margin-top:50px;
+	list-style-type: none;
+}
+ li {
+ color: white;
+ font-family:cursive;
+ vertical-align: middle;
+ }
+li:hover{
+ color: red;
+ font-family:cursive;
+ vertical-align: middle;
+ }
+ 
+ .listaCorsiSubmit[type=submit] {
+ margin-top: 20px;
+  width: 25%;
+  height: 30px;
+  background-color: #800000;
+  color: white;
+  border: none;
+  padding: 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  
+}
+.listaCorsiSubmit[type=submit]:hover {
+ margin-top: 20px;
+  width: 25%;
+  height: 30px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+
+ 
+ h1.dettagliCorsoh1 {
+color: red;
+text-align: center;
+
+}
+
+.dettagliCorsoBody { 
+  background-image: url("img/aaa.jpg");
+  background-size: 100%;
 	
-	background-image: url("img/listaCorsi.jpg");
-	background-image: 100%;
-	text-align: center;
+}
+
+.dettagliCorso {
+  position: relative;
+  margin-top: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  width:1200px;
+  height: 800px;
+  background-image: url("img/.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 5px double #800000;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 50px;
+  color: red;
+  vertical-align: middle;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.dettagliCorsoDivDettagli{
+  font-family: Informal Roman;
+  font-weight:bold;
+  position:relative;
+  margin-left:650px;
+  margin-top: 180px;
+  font-size: 25px;
+  color:red;
+  width:800px;
+  height:200px;
+  line-height: 40px;
+  text-align: center;
+/*   border: 5px double #800000;order: thick; */
+}
+
+.dettagliCorsoDivDescrizione {
+  position:relative;
+  margin-left:350px;
+  font-weight: bold;
+  margin-top: 30px;
+  font-family: Informal Roman;
+  font-size: 30px;
+  color:black;
+  padding-right: 25px;
+  padding-left: 25px;
+  width:900px;
+  height:450px;
+  line-height: 30px;
+  text-align: justify;
+/*   border: 5px double #800000;order: thick; */
+}
+
+.dettagliCorsoDivForm {
+  width:900px;
+  height:50px;
+  position:relative;
+  margin-left:350px;
+  margin-top: 30px;
+  font-size: 30px;
+  padding-right: 25px;
+  padding-left: 25px;
+/*   border: 5px double #800000;order: thick; */
+  text-align: center;
+}
+
+.dettagliCorsoActions {
+	display: inline;
+	padding: 40px;
+	
+}
+#dettagliCorsoButtonSubmit{
+  width: 140px;
+  height: 40px;
+  background-color: red;
+  color: white;
+  text-align:center;
+  vertical-align: middle;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-block;
 }
