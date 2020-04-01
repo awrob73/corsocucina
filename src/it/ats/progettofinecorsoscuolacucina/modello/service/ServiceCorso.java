@@ -216,6 +216,138 @@ public class ServiceCorso {
 		return listaCorsiFeedback;
 
 	}
+	
+	public void modificaCodice(Corso c, int codice) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setCodice(codice);
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaTitolo(Corso c, String titolo) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setTitolo(titolo);;
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaCategoria(Corso c, Categoria categoria) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setCategoria(categoria);
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaMaxPartecipanti(Corso c, int maxPartecipanti) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setMaxPartecipanti(maxPartecipanti);
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaCosto(Corso c, double costo) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setCosto(costo);
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaDescrizione(Corso c, String descrizione) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			c.setDescrizione(descrizione);
+			daoCo.modifica(connection, c);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
 
 	/*
 	 * Legge i dati di un singolo corso (senza edizioni). Se il metodo / i metodi

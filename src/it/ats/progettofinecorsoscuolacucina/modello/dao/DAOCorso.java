@@ -46,7 +46,7 @@ public class DAOCorso {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(
-					"update corso set  codice = ?, titolo = ?, id_categoria = ?, max_partecipanti = ?, costo = ?, descrizione = ?) where id = ?");
+					"update corso set  codice = ?, titolo = ?, id_categoria = ?, max_partecipanti = ?, costo = ?, descrizione = ? where id = ?");
 			preparedStatement.setInt(1, corso.getCodice());
 			preparedStatement.setLong(7, corso.getId());
 			preparedStatement.setString(2, corso.getTitolo());

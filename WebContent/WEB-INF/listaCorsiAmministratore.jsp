@@ -19,12 +19,16 @@
 <p>
 
 <% for(Corso co: listCorsi){
-	out.println("<li> <form action='ServletEdizioniCorso' method='post'>"); 
 	out.println(co.getTitolo());
+	out.println("<li> <form action='ServletEdizioniCorso' method='post'>"); 
 	out.println(" <input type='hidden' name='username' value="+ a.getUsername() + "> ");
 	out.println(" <input type='hidden' name='password' value="+ a.getPassword() + "> ");
 	out.println(" <input type='hidden' name='idCorso' value="+ co.getId() + "> ");
 	out.println(" <input type='submit' value='edizioni'></form> <br></li>");
+	
+	out.println("<li> <form action='ServletModificaIntermediaCorso' method='post'>");
+	out.println(" <input type='hidden' name='id' value="+ co.getId() + "> ");
+	out.println(" <input type='submit' value='Modifica'></form> <br></li>");
 	}%>
 <p>
 <form action="ServletInserisciCorso" method="post">
