@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<% Utente u = (Utente) session.getAttribute("user"); %>
+<% Utente u = (Utente) request.getAttribute("utente"); %>
 <div class="datiUtenteDiv">
 
 

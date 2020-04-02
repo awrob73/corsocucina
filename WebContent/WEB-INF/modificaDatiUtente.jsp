@@ -14,7 +14,7 @@
 <%Utente u = (Utente)request.getAttribute("utente");  %> 
 <strong> <%=u.getUsername()%> </strong> ecco i tuoi dati, puoi modificarli. <p>
 
-<form action="modificaFinale" method="post">
+<form action="ServletModificaUtente" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
 		<strong> Username </strong>
 		<input type="text" name="username" value = <%=u.getUsername()%> > <br>
@@ -26,11 +26,11 @@
 		<input type="text" name="cognome" value= <%=u.getCognome() %> >  <br>		
 		<strong> Data di nascita </strong> <br>
 		<strong> Giorno </strong> 
-		<input type="number" name="giorno" value=<%=u.getDataNascita().getDay() %>  >  <br>
+		<input type="text" name="giorno" >  <br>
 		<strong> Mese </strong> 
-		<input type="number" name="mese" value=<%=u.getDataNascita().getMonth() %> >  <br>
+		<input type="text" name="mese" >  <br>
 		<strong> Anno </strong>  
-		<input type="number" name="anno" value=<%=u.getDataNascita().getYear() %> >  <br>	
+		<input type="text" name="anno" >  <br>	
 		<strong> Email </strong>
 	    <input type="text" name="email" value=<%=u.getEmail() %>>  <br>
 	    <strong> Telefono </strong>
