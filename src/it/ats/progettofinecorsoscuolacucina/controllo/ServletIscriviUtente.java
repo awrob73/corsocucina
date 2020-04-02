@@ -35,14 +35,12 @@ public class ServletIscriviUtente extends HttpServlet {
 			
 			Edizione ed = se.leggiEdizione(idEdizione);
 			Utente u = su.leggiUtente(idUtente);
-			System.out.println(u);
-			System.out.println(ed);
 			se.iscriviUtente(ed.getId(), u.getId());
 
-	
 			
 			request.setAttribute("user", u);
 			request.setAttribute("edizione", ed);
+			
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/iscrizione.jsp");
 			requestDispatcher.forward(request, response);
