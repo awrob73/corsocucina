@@ -44,7 +44,6 @@ public class ServeltDisiscriviUtente extends HttpServlet {
 			Utente u = su.leggiUtente(idUtente);
 			Edizione ed = se.leggiEdizione(idEdizione);
 			
-			request.setAttribute("user", u);
 			request.setAttribute("edizione", ed);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/disiscrizione.jsp");
