@@ -147,7 +147,7 @@ div.datiAmministratoreFunctions {
 </div>
 </div>
 <div class="datiAmministratoreFunctions">
-Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> </span> il tuo account
+Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> </span> il tuo account <br>
 <form class="datiAmministratoreActions" action="ServletModificaIntermediaA" method="post">
 <input type='hidden' name='id' value=<%=u.getId()%>>
 <input class="datiAmministratoreSubmit" type='submit' value='modifica dati'>
@@ -156,7 +156,7 @@ Clicca qui se desideri <span style="color:#800000"><strong>modificare</strong> <
 <form class="datiAmministratoreActions" action="login" method="post">
 <input type='hidden' name='username' value=<%=u.getUsername() %>>
 <input type='hidden'  name='password' value=<%=u.getPassword() %>>
-<input class="datiAmministratoreSubmit" type='submit' value='Vai alla Pagina Privata Amministratore'></form>
+<input  type='submit' value='Vai alla Pagina Privata Amministratore'></form>
 
 
 </div>
