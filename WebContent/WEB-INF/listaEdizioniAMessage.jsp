@@ -38,7 +38,7 @@
 		%>
 		
 	<form action='ServletInserisciEdizione' method='post'> 
-	<input type='hidden' name='idCorso' value= <% corso.getId(); %>>
+	<input type='hidden' name="idCorso" value= <%=corso.getId()%>>
 	Inserisci la data di inizio: <br>
 	Giorno [GG] <input type='number' name='giorno'> Mese [MM] <input type='number' name='mese'> Anno [AAAA] <input type='number' name='anno'> <br>
 	Inserisci la durata del corso <input type='number' name='durata'> <br>
