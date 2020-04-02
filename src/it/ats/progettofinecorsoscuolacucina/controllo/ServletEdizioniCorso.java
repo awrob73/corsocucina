@@ -47,7 +47,7 @@ public class ServletEdizioniCorso extends HttpServlet {
 			Utente u = su.checkCredenziali(username, password);
 			
 			String convId = request.getParameter("idCorso");
-			Long idCorso = Long.parseLong(convId);
+			long idCorso = Long.parseLong(convId);
 		
 			Corso co = sc.visualizzaCorso(idCorso);
 			
