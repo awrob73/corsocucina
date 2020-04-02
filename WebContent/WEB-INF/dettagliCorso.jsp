@@ -39,44 +39,29 @@ pageEncoding="ISO-8859-1"%>
 </script>
 
 </head>
+
 <style>
- h1.dettagliCorsoh1 {
-color: red;
-text-align: center;
-}
-.dettagliCorsoBody { 
+.dettagliCorsoDiv { 
   background-image: url("img/aaa.jpg");
   background-size: 100%;
+  width:1400px;
+  height:900px; 
+  margin: auto;
+  border: 5px double #800000; 
+  border-radius: 20px; 
+  text-align: center;
+  font-size: 30px;
+  list-style-type: none;
 	
 }
-.dettagliCorso {
-  position: relative;
-  margin-top: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  width:1200px;
-  height: 800px;
-  background-image: url("img/.jpg");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: 5px double #800000;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  font-size: 50px;
-  color: red;
-  vertical-align: middle;
-  font-size: 70px;
-  font-weight: bold;
-}
+
 
 .dettagliCorsoDivDettagli{
   font-family: Informal Roman;
   font-weight:bold;
   position:relative;
-  margin-left:650px;
-  margin-top: 180px;
+  margin-left:500px;
+  margin-top: 120px;
   font-size: 25px;
   color:red;
   width:800px;
@@ -88,27 +73,26 @@ text-align: center;
 
 .dettagliCorsoDivDescrizione {
   position:relative;
-  margin-left:350px;
+  margin-left:400px;
   font-weight: bold;
   margin-top: 30px;
   font-family: Informal Roman;
-  font-size: 30px;
+  font-size: 25px;
   color:black;
   padding-right: 25px;
   padding-left: 25px;
-  width:900px;
-  height:450px;
+  width:800px;
+  height:430px;
   line-height: 30px;
   text-align: justify;
 /*   border: 5px double #800000;order: thick; */
 }
-
 .dettagliCorsoDivForm {
   width:900px;
   height:50px;
   position:relative;
   margin-left:350px;
-  margin-top: 30px;
+  margin-top: 0px;
   font-size: 30px;
   padding-right: 25px;
   padding-left: 25px;
@@ -118,7 +102,8 @@ text-align: center;
 
 .dettagliCorsoActions {
 	display: inline;
-	padding: 40px;
+	padding: 10px;
+/* 	border: 5px double #800000;order: thick; */
 	
 }
 #dettagliCorsoButtonSubmit{
@@ -135,8 +120,8 @@ text-align: center;
 }
 </style>
 
-<body class="dettagliCorsoBody">
-<div  class="">
+<body>
+<div  class="dettagliCorsoDiv">
 <% Corso c = (Corso) request.getAttribute("corso"); %>
 <% List<EdizioneDTO> listaEdizioniDTO = (List<EdizioneDTO>) request.getAttribute("listaEdizioniDTO"); %>
 <% Utente u = (Utente) session.getAttribute("user"); %>
@@ -172,10 +157,11 @@ text-align: center;
 		<input type='hidden' name='password' value=<%=u.getPassword()%>>
 		<input type='submit' value='Torna alla Pagina Privata Utente'>
 	</form>
+</div>
 
 <li><div id='demo'></div></li>
 
-</div>
+
 </div> 	 
 </body>
 </html>

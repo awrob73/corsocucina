@@ -26,6 +26,7 @@
   font-weight: bold;
 }
 .listaCorsiDiv {
+  overflow: auto;
   width:1400px;
   height:740px;
 /*   border: 5px double #800000; */
@@ -96,8 +97,8 @@ li:hover{
 			for (int i = 0; i < lista.size(); i++) {
 					out.println("<li> <form action='infoCorso' method='post'>"); 
 					out.println(" <input type='hidden' name='idCorso' value="+ lista.get(i).getId() + "> ");
-					out.println(" <input type='hidden' name='username' value="+ u.getUsername() + "> ");
-					out.println(lista.get(i).getTitolo()+ "<br>");
+                                        out.println(" <input type='hidden' name='username' value="+ u.getUsername() + "> ");					
+                                        out.println(lista.get(i).getTitolo()+ "<br>");
 						out.println(" <input class='listaCorsiSubmit' type='submit' value='vai'></form> <br></li>");
 						
 			}

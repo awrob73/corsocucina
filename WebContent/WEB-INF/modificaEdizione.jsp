@@ -16,9 +16,9 @@
 	<input type='hidden' name='idEdizione' value= <%= ed.getId() %> >
 		<input type="hidden" name="idCorso" value =<%=ed.getCorso().getId()%>>	
 		<strong> Giorno </strong>
-		<input type="text" name="giorno" > <br>
+		<input type="text" name="giorno"> <br>
 		<strong> Mese </strong>
-		<input type="text" name="mese" > <br>
+		<input type="text" name="mese"  > <br>
 		<strong> Anno </strong>
 		<input type="text" name="anno" > <br>
 	<strong> Dutata </strong>
