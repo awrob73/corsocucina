@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<% Utente u = (Utente) request.getAttribute("utente"); %>
+<% Utente u = (Utente) request.getAttribute("user"); %>
 <div class="datiUtenteDiv">
 
 

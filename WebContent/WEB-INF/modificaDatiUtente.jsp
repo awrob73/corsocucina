@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<%Utente u = (Utente)request.getAttribute("utente");  %> 
+<%Utente u = (Utente)request.getAttribute("user");  %> 
 <strong> <%=u.getUsername()%> </strong> ecco i tuoi dati, puoi modificarli. <p>
 
 <form action="ServletModificaUtente" method="post">

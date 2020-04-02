@@ -30,7 +30,7 @@ public class ServletModificaIntermedia extends HttpServlet {
 			
 			Utente u = su.leggiUtente(idUtente);
 			
-			request.setAttribute("utente", u);
+			request.setAttribute("user", u);
 			
 			getServletContext().
 			getRequestDispatcher("/WEB-INF/modificaDatiUtente.jsp").

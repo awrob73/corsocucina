@@ -16,7 +16,6 @@ import it.ats.progettofinecorsoscuolacucina.modello.Utente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
 import it.ats.progettofinecorsoscuolacucina.modello.service.eccezioni.ServiceException;
 
-@WebServlet("/modificaFinale")
 public class ServletModificaUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +40,7 @@ public class ServletModificaUtente extends HttpServlet {
 			String giorno = request.getParameter("giorno");
 			String mese = request.getParameter("mese");
 			String anno = request.getParameter("anno");
-			LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
+			LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno)+1);
 			Date newData = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 			String convTel = request.getParameter("telefono");
 			Long telefono = Long.parseLong(convTel);
@@ -78,7 +77,7 @@ public class ServletModificaUtente extends HttpServlet {
 			}
 
 			u = su.leggiUtente(idUtente);
-			request.setAttribute("utente", u);
+			request.setAttribute("user", u);
 
 			getServletContext().
 			getRequestDispatcher("/WEB-INF/datiUtente.jsp").

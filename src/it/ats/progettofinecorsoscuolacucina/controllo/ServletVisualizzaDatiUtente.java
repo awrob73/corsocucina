@@ -32,7 +32,7 @@ import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceUtente;
 			
 			Utente u = su.visualizzaDatiUtente(username);
 			
-			request.setAttribute("utente", u);
+			request.setAttribute("user", u);
 			getServletContext().
 			getRequestDispatcher("/WEB-INF/datiUtente.jsp").
 			forward(request, response);
