@@ -89,7 +89,7 @@ color: black;
 			for (int i = 0; i < lista.size(); i++) {
 				out.println("<li> <form action='ServletDettagliEdizione' method='post'>" + " <input type='hidden' name='id' value="
 						+ lista.get(i).getEdizione().getId() + "> " + " <input type='submit' value=" + lista.get(i).getEdizione().getDataInizio()
-						+ "></form> </li>");
+						+  "><input type='hidden' name='username' value="+u.getUsername()+"></form> </li>");
 			}
 		%>
 		
