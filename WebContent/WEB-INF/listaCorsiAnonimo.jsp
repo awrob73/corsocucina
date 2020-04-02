@@ -93,7 +93,7 @@ li:hover{
 	<ul>
 		<%
 			for (int i = 0; i < lista.size(); i++) {			
-                                        out.println(lista.get(i).getTitolo()+ "<br>");			
+                                        out.println(lista.get(i).getTitolo()+ "<p>");			
 			}
 		%>
 </div>
