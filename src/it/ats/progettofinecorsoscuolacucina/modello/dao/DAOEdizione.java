@@ -96,12 +96,13 @@ public class DAOEdizione {
 	public void modifica(Connection connection, Edizione ed) throws DAOException {
 		PreparedStatement ps;
 		try {
-			ps = connection.prepareStatement("UPDATE edizione SET data_inizio=?, durata=?, aula=?, docente=? WHERE id= ?");
+			ps = connection.prepareStatement("UPDATE edizione SET data_inizio=?, durata=?, aula=?, docente=?, terminata=? WHERE id= ?");
 			ps.setDate(1, new java.sql.Date(ed.getDataInizio().getTime()));
 			ps.setInt(2, ed.getDurata());
 			ps.setString(3, ed.getAula());
 			ps.setString(4, ed.getDocente());
-			ps.setLong(5, ed.getId());
+			ps.setLong(6, ed.getId());
+			ps.setBoolean(5, ed.isTerminata());
 
 			ps.executeUpdate();
 

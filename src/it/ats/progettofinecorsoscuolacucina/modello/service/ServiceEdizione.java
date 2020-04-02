@@ -558,6 +558,28 @@ public void cancellaEdizione2(long idEdizione) throws ServiceException, SQLExcep
 			}
 		}
 	}
+	
+	public void modificaTerminata(Edizione ed) throws Exception {
+		Connection connection = null;
+		try {
+			connection = DataSource.getInstance().getConnection();
+			daoE.modifica(connection, ed);
+			connection.commit();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+
+	}
 
 
 	public static ServiceEdizione getInstance() {

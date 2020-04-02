@@ -54,13 +54,20 @@ public class ServletModificaEdizione extends HttpServlet {
 			int newDurata = Integer.parseInt(convDurata);
 			String newAula = request.getParameter("aula");
 			String newDocente = request.getParameter("docente");
-			//String convTerminata = request.getParameter("terminata");
-			//boolean terminata = Boolean.parseBoolean("convTerminata");
+			String convTerminata = request.getParameter("terminata");
+			
 			
 			
 			Edizione ed = sed.leggiEdizione(idEdizione);
 			Corso corso = sc.visualizzaCorso(idCorso);
 			ed.setCorso(corso);	
+			if(!convTerminata.isEmpty()) {
+			if (convTerminata.equals("si")) {
+				ed.setTerminata(true);
+			}else {
+				ed.setTerminata(false);
+			}sed.modificaTerminata(ed);
+			}
 			
 			if (newData != null && newData != ed.getDataInizio()) {
 				sed.modificaData(ed, newData);
