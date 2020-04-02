@@ -140,27 +140,23 @@ public class ServiceCorso {
 		return listaCorsi;
 	}
 
-	public Corso visualizzaCorso(long idCorso) throws ServiceException {
+	public Corso visualizzaCorso(long idCorso) throws Exception {
 
 		Connection connection = null;
 		Corso co = new Corso();
+		Categoria cat = new Categoria();
 		try {
 			connection = DataSource.getInstance().getConnection();
 			co = daoCo.cercaPerId(connection, idCorso);
-			co.setCategoria(daoCat.cercaPerId(connection, co.getCategoria().getId()));
+			cat =daoCat.cercaPerId(connection, co.getCategoria().getId());
+			
+			co.setCategoria(cat);
+			connection.commit();
+			return co;
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new ServiceException(e.getMessage());
-			}
-		}
-		return co;
 	}
 
 	/*

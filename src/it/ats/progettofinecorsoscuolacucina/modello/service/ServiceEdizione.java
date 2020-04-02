@@ -456,11 +456,107 @@ public void cancellaEdizione2(long idEdizione) throws ServiceException, SQLExcep
 	
 	public Edizione leggiEdizione(long idEdizione) throws Exception {
 		Connection connection = null;
-		 
 		connection = DataSource.getInstance().getConnection();
 		Edizione ed = daoE.cercaPerId(connection, idEdizione);
 		connection.commit();
 		return ed;
+	}
+	
+	public void modificaAula(Edizione ed, String newAula) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			ed.setAula(newAula);
+			daoE.modifica(connection, ed);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaDocente(Edizione ed, String newDocente) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			ed.setDocente(newDocente);
+			daoE.modifica(connection, ed);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void modificaDurata(Edizione ed, int durata) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			ed.setDurata(durata);
+			daoE.modifica(connection, ed);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
+
+	}
+	
+	public void modificaData(Edizione ed, java.util.Date newData) throws Exception {
+		Connection connection = null;
+
+		try {
+			connection = DataSource.getInstance().getConnection();
+			ed.setDataInizio(newData);
+			daoE.modifica(connection, ed);
+			connection.commit();
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new ServiceException(e.getMessage());
+				}
+			}
+		}
 	}
 
 

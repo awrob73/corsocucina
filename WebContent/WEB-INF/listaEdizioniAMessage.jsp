@@ -30,7 +30,7 @@
 				out.println("<li>" + lista.get(i).getEdizione().getDataInizio() + "<form action='ServletCancellaEdizione' method='post'>" + 
 							"<input type='hidden' name='idEdizione' value=" + lista.get(i).getEdizione().getId() + "> " + 
 							"<input type='hidden' name='idCorso' value=" + corso.getId() + "> " +
-							"<input type='submit' value='cancella'></form>" + "<form action='ServletModificaEdizione' method='post'>" + 
+							"<input type='submit' value='cancella'></form>" + "<form action='ServletModificaIntermediaEdizione' method='post'>" + 
 							"<input type='hidden' name='idEdizione' value=" + lista.get(i).getEdizione().getId() + "> " + 
 							"<input type='hidden' name='idCorso' value=" + corso.getId() + "> " +
 							"<input type='submit' value='modifica'></form> </li>");
