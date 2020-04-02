@@ -48,7 +48,7 @@ public class ServletModificaEdizione extends HttpServlet {
 			String newGiorno = request.getParameter("giorno");
 			String newMese = request.getParameter("mese");
 			String newAnno = request.getParameter("anno");
-			LocalDate l = LocalDate.of(Integer.parseInt(newAnno), Integer.parseInt(newMese), Integer.parseInt(newGiorno));
+			LocalDate l = LocalDate.of(Integer.parseInt(newAnno), Integer.parseInt(newMese), Integer.parseInt(newGiorno)+1);
 			Date newData = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 			String convDurata = request.getParameter("durata");
 			int newDurata = Integer.parseInt(convDurata);

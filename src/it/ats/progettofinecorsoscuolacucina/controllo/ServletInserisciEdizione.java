@@ -44,7 +44,7 @@ public class ServletInserisciEdizione extends HttpServlet {
 		String giorno = request.getParameter("giorno");
 		String mese = request.getParameter("mese");
 		String anno = request.getParameter("anno");
-		LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
+		LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno)+1);
 		Date dataInizio = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 		String convDurata = request.getParameter("durata");
 		int durata = Integer.parseInt(convDurata);
