@@ -35,7 +35,7 @@ public class ServletModificaCorso extends HttpServlet {
 
 		try {
 			String convId = request.getParameter("id");
-			Long idCorso = Long.parseLong(convId);
+			long idCorso = Long.parseLong(convId);
 			String convCodice = request.getParameter("codice");
 			int codiceCorso = Integer.parseInt(convCodice);
 			String titolo = request.getParameter("titolo");

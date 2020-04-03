@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.ats.progettofinecorsoscuolacucina.modello.Corso;
 import it.ats.progettofinecorsoscuolacucina.modello.Utente;
+import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceCategoria;
 import it.ats.progettofinecorsoscuolacucina.modello.service.ServiceCorso;
 
 /**
@@ -17,6 +18,7 @@ public class ServletModificaIntermediaCorso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private ServiceCorso sc;
+	private ServiceCategoria scat;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -24,6 +26,7 @@ public class ServletModificaIntermediaCorso extends HttpServlet {
     public ServletModificaIntermediaCorso() {
         super();
         this.sc = ServiceCorso.getInstance();
+        this.scat= ServiceCategoria.getInstance();
     }
 
 	
@@ -31,9 +34,9 @@ public class ServletModificaIntermediaCorso extends HttpServlet {
 		try {
 			String conv = request.getParameter("id");
 			Long idCorso = Long.parseLong(conv);
-
-			Corso c = sc.visualizzaCorso(idCorso);
 			
+			Corso c = sc.visualizzaCorso(idCorso);
+			c.setCategoria(scat.cercaCategoriaId(c.getCategoria().getId()));
 			request.setAttribute("corso", c);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/modificaCorso.jsp").forward(request,
