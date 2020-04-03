@@ -127,7 +127,19 @@ color: black;
 				for (Edizione edCSiFeedback : listaEdizioniConcluseSiFeedback) {
 
 					out.println("<li>Nome del corso: " + edCSiFeedback.getCorso().getTitolo() + " Data inizio corso: "
-							+ edCSiFeedback.getDataInizio() + "<li>");
+							+ edCSiFeedback.getDataInizio());
+					out.println("<form action ='ServletModificaIntermediaFeedback' method='post' >"
+							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
+							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
+							+ "<input type='submit' value='modifica Feedback'> </form>");
+					
+					
+					out.println("<form action ='ServletCancellaFeedback' method='post' >"
+							+ "<input type='hidden' name='idUtente' value=" + u.getId() + ">"
+							+ "<input type='hidden' name='idEdizione' value=" + edCSiFeedback.getId() + ">"
+							+ "<input type='submit' value='cancella Feedback'> </form>");
+					
+					out.println("<li>");
 				}
 			}
 		%>
