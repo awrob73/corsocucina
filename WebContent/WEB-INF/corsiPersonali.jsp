@@ -11,8 +11,7 @@
 <meta charset="ISO-8859-1">
 <title>Corsi Personali</title>
 </head>
-<body>
-<body>
+
 
 <style>
 
@@ -53,7 +52,7 @@ background-color: #800000;
 color: black;
 }
 </style>
-</head>
+
 <body>
 
 <div class="hero-image">

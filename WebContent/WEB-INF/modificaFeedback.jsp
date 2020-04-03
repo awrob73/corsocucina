@@ -8,11 +8,55 @@
 <meta charset="ISO-8859-1">
 <title>Modifica Feedback</title>
 </head>
+
+<style>
+
+body {
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+
+  margin: auto;
+  background-image: url("img/cutlery_decoration_background_eat_gastronomy_knife_fork_spoon-695364.jpg");
+  background-color: #cccccc;
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  margin: auto;
+  text-align: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+
+input[type=submit] {
+  background-color: #800000;
+  color: white;
+}
+
+h1{
+color: red;
+}
+</style>
+
 <body>
+
 
 <%Feedback f = (Feedback) request.getAttribute("feedback");  %> 
 
-<strong> <%=f.getDescrizione()%> </strong> ecco il tuo feedback, puoi modificarlo. <p>
+<div class="hero-image">
+ <div class="hero-text">
+
+ ecco il tuo feedback: <strong> <%=f.getDescrizione()%> </strong>, puoi modificarlo. <p>
 
 
 
@@ -27,7 +71,9 @@
 		
 		<input type="submit" value="conferma la modifica">
 		</form>
-		
+	
+	</div>
+	</div>	
 
 </body>
 </html>
